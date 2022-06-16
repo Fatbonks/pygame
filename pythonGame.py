@@ -14,7 +14,6 @@ def create_event():
     if choice == 2:
         print("An enemy!")
         enemy()
-
     if choice == 1:
         print("chest!")
 
@@ -23,11 +22,6 @@ def enemy():
         print(enemy_health = 10)
         print( enemy_damage = 1)
         attack_first = random.randint(0, 1)
-        if attack_first == 0:
-           print( player_health - enemy_damage)
-        if attack_first == 1:
-           print( enemy_health - player_damage)
-    
 
 
 
