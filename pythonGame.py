@@ -1,25 +1,40 @@
 import random
 player_health = 10
 player_damage = 1
-enemy = 10
-chest = 1
-events = [enemy, chest]
 is_event_happen = 0
+enemy_health = 10
+enemy_damage = 1
+
+print("welcome to my game")
 
 
 def create_event():
-    choice = random.choice(events)
-    if choice == enemy:
-        print("oh no an enemy")
-    if choice == chest:
+    random.seed()
+    choice = random.randint(1, 2)
+    if choice == 2:
+        print("An enemy!")
+        enemy()
+
+    if choice == 1:
         print("chest!")
 
-print("welcome to my game")
+def enemy():
+    while enemy_health > 0 or player_health > 0:
+        print(enemy_health = 10)
+        print( enemy_damage = 1)
+        attack_first = random.randint(0, 1)
+        if attack_first == 0:
+           print( player_health - enemy_damage)
+        if attack_first == 1:
+           print( enemy_health - player_damage)
+    
+
+
 
 help = "how to play: up,down,left,right to move your character.\ninput 'player' to see your stats\nand 'help' will give you list of commands you can text"
 print(help)
 
-game_is_running =True
+game_is_running = True
 
 while game_is_running:
     player = input("Input here: ").lower().strip()
@@ -32,5 +47,5 @@ while game_is_running:
             create_event()
     if player == "help":
         print(help)
-        
+
   
