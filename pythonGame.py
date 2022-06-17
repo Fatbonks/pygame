@@ -1,20 +1,14 @@
 import random
 import sys
-# import os
-
-
-# map #
 import time
 
 
+# map #
 class ZoneMap:
     def __int__(self):
         self.left = False
         self.right = False
         self.down = True
-
-
-zone_map = ZoneMap()
 
 
 # enemy_class #
@@ -23,9 +17,6 @@ class Enemy:
         self.health = 0
         self.damage = 0
         self.name = ''
-
-
-enemy = Enemy()
 
 
 # player_class #
@@ -37,9 +28,12 @@ class Player:
         self.effects = []
 
 
+enemy = Enemy()
+zone_map = ZoneMap()
 my_player = Player()
 
 
+# spawns enemy with a name #
 def spawn_enemy():
     enemy_names = ['goblin', 'troll', 'wolf']
     enemy.name = random.choice(enemy_names)
@@ -55,6 +49,7 @@ def spawn_enemy():
     print(enemy.name)
 
 
+# run this to start the game #
 def start_game():
     wall_left = False
     wall_right = False
@@ -75,18 +70,16 @@ def start_game():
         if move == 'down':
             print("You move backwards, in the deep dark")
 
-#a
+
+# input anything into speech, and it will be slowly typed #
 def speak(speech):
     for char in speech:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(0.1)
+        time.sleep(0.2)
 
+# speak("Hello there welcome to rpg game\n")
+# speak("Enter your name\n")
+# my_player.name = input('> ')
 
-speak("Hello there welcome to rpg game\n")
-speak("Enter your name\n")
-my_player.name = input('> ')
-
-speak("nice name {}".format(my_player.name))
-
-start_game()
+# speak("nice name {}\n".format(my_player.name))
