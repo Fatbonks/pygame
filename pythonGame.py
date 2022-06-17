@@ -75,7 +75,7 @@ def start_game():
         if move == 'down':
             print("You move backwards, in the deep dark")
 
-
+#a
 def speak(speech):
     for char in speech:
         sys.stdout.write(char)
