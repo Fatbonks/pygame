@@ -1,12 +1,12 @@
 import random
-
-
-# import time
-# import sys
+import sys
 # import os
 
 
 # map #
+import time
+
+
 class ZoneMap:
     def __int__(self):
         self.left = False
@@ -56,27 +56,37 @@ def spawn_enemy():
 
 
 def start_game():
-    wall = False
+    wall_left = False
+    wall_right = False
     game_is_running = True
     while game_is_running:
         move = input("> ").lower()
         if move == 'up':
+            print("You move forward, in the deep dark")
+        if move == 'left' and wall_left is True:
             print(move)
-        if move == 'left' and wall == True:
-            print(move)
-        elif move == 'left' and wall == False:
+        elif move == 'left' and wall_left is False:
             print("There is a wall blocking your path")
 
-        if move == 'right':
+        if move == 'right' and wall_right is True:
             print(move)
+        elif move == 'right' and wall_right is False:
+            print("there is a wall blocking your path")
         if move == 'down':
-            print(move)
+            print("You move backwards, in the deep dark")
 
 
-# print("What is your name?")
+def speak(speech):
+    for char in speech:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.1)
 
-# my_player.name = input('> ')
 
-# print("Ah, i see {}. What a nice name!".format(my_player.name))
+speak("Hello there welcome to rpg game\n")
+speak("Enter your name\n")
+my_player.name = input('> ')
+
+speak("nice name {}".format(my_player.name))
 
 start_game()
