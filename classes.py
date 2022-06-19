@@ -18,17 +18,16 @@ class Enemy:
 
 # player_class #
 class Player:
-    def __int__(self):
-        self.name = ''
-        self.hp = 0.0
-        self.mana = 0.0
-        self.damage = 0.0
-        self.effects = []
-        self.exp = 0.0
-        self.speed = 0.0
-        self.dodge = 0.0
-        self.level = 0
-
+    def __int__(self, name, health, mana, damage, exp, speed, dodge, level):
+        self.name = name
+        self.hp = health
+        self.mana = mana
+        self.damage = damage
+        self.exp = exp
+        self.speed = speed
+        self.dodge = dodge
+        self.level = level
+classes.warrior = Player(name, health., mana, damage, exp, speed, dodge, level)
 
 class ArmorHead:
     armor_head_level = 0
