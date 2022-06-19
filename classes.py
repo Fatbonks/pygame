@@ -31,19 +31,35 @@ class Player:
 
 
 class ArmorHead:
-    pass
+    armor_head_level = 0
+    increase_hp = 0.0
+    increase_mana = 0.0
+    increase_speed = 0.0
+    increase_dodge = 0.0
 
 
 class ArmorChest:
-    pass
+    armor_chest_level = 0
+    increase_hp = 0.0
+    increase_mana = 0.0
+    increase_speed = 0.0
+    increase_dodge = 0.0
 
 
 class ArmorLegging:
-    pass
+    armor_legging_level = 0
+    increase_hp = 0.0
+    increase_mana = 0.0
+    increase_speed = 0.0
+    increase_dodge = 0.0
 
 
 class ArmorBoots:
-    pass
+    armor_boots_level = 0
+    increase_hp = 0.0
+    increase_mana = 0.0
+    increase_speed = 0.0
+    increase_dodge = 0.0
 
 
 # declaring class's into vars #

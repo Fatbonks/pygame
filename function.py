@@ -102,10 +102,12 @@ def combat():
                 else:
                     classes.my_player.damage = 1
                 classes.enemy.health = classes.enemy.health - classes.my_player.damage
-                print("you did {} HP of damage and the health of the {} is {}".format(classes.my_player.damage, classes.enemy.name,
+                print("you did {} HP of damage and the health of the {} is {}".format(classes.my_player.damage,
+                                                                                      classes.enemy.name,
                                                                                       classes.enemy.health))
                 classes.my_player.hp = classes.my_player.hp - classes.enemy.damage
-                print("you took {} damage by the {}, you have {} health left".format(classes.enemy.damage, classes.enemy.name,
+                print("you took {} damage by the {}, you have {} health left".format(classes.enemy.damage,
+                                                                                     classes.enemy.name,
                                                                                      classes.my_player.hp))
             if action == 2:
                 pass
@@ -120,6 +122,11 @@ def combat():
         if classes.my_player.hp <= 0:
             speak("You have Died!")
             sys.exit()
+
+
+def create_armor():
+    if classes.my_player.level > 0:
+        pass
 
 
 # input anything into speech, and it will be slowly typed #
