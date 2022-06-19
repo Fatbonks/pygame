@@ -1,4 +1,3 @@
-
 # map #
 class ZoneMap:
     def __int__(self):
@@ -29,6 +28,22 @@ class Player:
         self.speed = 0.0
         self.dodge = 0.0
         self.level = 0
+
+
+class ArmorHead:
+    pass
+
+
+class ArmorChest:
+    pass
+
+
+class ArmorLegging:
+    pass
+
+
+class ArmorBoots:
+    pass
 
 
 # declaring class's into vars #
