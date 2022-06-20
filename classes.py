@@ -18,8 +18,7 @@ class Enemy:
 
 # player_class #
 class Player:
-    def __int__(self, name, health, mana, damage, exp, speed, dodge, level):
-        self.name = name
+    def __init__(self, health, mana, damage, exp, speed, dodge, level):
         self.hp = health
         self.mana = mana
         self.damage = damage
@@ -27,6 +26,12 @@ class Player:
         self.speed = speed
         self.dodge = dodge
         self.level = level
+
+
+
+
+
+
 
 class ArmorHead:
     armor_head_level = 0
