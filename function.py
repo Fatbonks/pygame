@@ -1,118 +1,176 @@
-import random
-import sys
-import time
-import classes
+import random as ran
+# import sys
+# import time
+import classes as cl
+import pythonGame as Py
+
+player_cl = None
+enemy_type = None
 
 
 # the player class(aka the stats of the player) that the player can pick #
 def player_class():
+    global player_cl
     print("Pick your class\n1: warrior\n2: mage\n3: archer\n4: thief")
     true = True
     while true:
-        print(warrior.name)
         try:
-            answer = int(input("> "))
-            if answer == "1":
-                warrior = classes.Player('Fatbonks', 10.0, 5.0, [1, 3], 0, 1, 0)
-                print(warrior.name)
+            act = int(input("> ").lower().strip())
+            if act == 1:
+                player_cl = Py.warrior
+                print(player_cl.class_type)
+                true = False
+            if act == 2:
+                player_cl = Py.mage
+                print(player_cl.class_type)
+                true = False
+            if act == 3:
+                player_cl = Py.archer
+                print(player_cl.class_type)
+                true = False
+            if act == 4:
+                player_cl = Py.thief
+                print(player_cl.class_type)
+                true = False
         except ValueError:
-            print("bad")
-def __int__():
-    warrior = classes.Player('Fatbonks', 10.0, 5.0, [1, 3], 0,1, 0)
-    print(warrior.name)
+            print("please input a valid number!")
+    print("------------")
+    print("are you ready to start Yes / No")
+    ans = input("> ").lower()
+    if ans == 'yes':
+        game(player_cl)
+    if ans == 'no':
+        exit(0)
 
 
-# enemy with a name #
-def spawn_enemy():
-    enemy_names = ['goblin', 'troll', 'wolf']
-    classes.enemy.name = random.choice(enemy_names)
-    if classes.enemy.name == 'goblin':
-        classes.enemy.health = 10.0
-        classes.enemy.damage = 1.0
-    if classes.enemy.name == 'wolf':
-        classes.enemy.health = 5.0
-        classes.enemy.damage = 1.0
-    if classes.enemy.name == 'troll':
-        classes.enemy.health = 15.0
-        classes.enemy.damage = 1.5
+def take_damage(attacker, defender):
+    dmg = ran.randint(attacker.damage['min_damage'], attacker.damage['max_damage'])
+    defender.health = defender.health - dmg
+    if defender.health <= 0:
+        print("------------------")
+        print("{} has been slain by {}".format(defender.name, attacker.name))
+        print("{} has {} health left".format(attacker.name, attacker.health))
+        attacker.exp = attacker.exp + defender.exp
+        level_up(player_cl)
+        if player_cl.health <= 0:
+            print("You have died")
+            exit(0)
+        else:
+            game(player_cl)
+    else:
+        print("------------------")
+        print("{} takes {} damage".format(defender.name, dmg))
+        print("{} health is {}\nThe {} health is {}".format(attacker.name, attacker.health, defender.name,
+                                                            defender.health))
 
 
-# run this to start the game #
-def start_game():
-    classes.zone_map.wall_left = False
-    classes.zone_map.wall_right = False
-    game_is_running = True
-    while game_is_running:
-        move = input("> ").lower()
-        if move == 'up':
-            print("You move forward, in the deep dark")
-            choice = random.randint(1, 2)
-            if choice == 2:
-                combat()
-        elif move == 'left' and classes.zone_map.wall_left is True:
-            print(move)
-        elif move == 'left' and classes.zone_map.wall_left is False:
-            print("There is a wall blocking your path")
-
-        elif move == 'right' and classes.zone_map.wall_right is True:
-            print(move)
-        elif move == 'right' and classes.zone_map.wall_right is False:
-            print("there is a wall blocking your path")
-        elif move == 'down':
-            print("You move backwards, in the deep dark")
-
-
-# plays the combat of the game #
-def combat():
-    global action
-    combat_true = True
-    spawn_enemy()
-    speak("An enemy has appeared!\n")
-    speak("Its a {}!".format(classes.enemy.name))
-    print("\n##############")
-    print("1: attack\n2: ranged attack\n3: run\n")
-    print("What will you do?\n")
-    while combat_true is True:
+def commands_for_combat(player, enemy):
+    true = True
+    while true:
+        print("------------------")
+        print("1: Attack\n2: Magic attack\n3: Run")
         try:
-            action = int(input("> "))
-            if action == 1:
-                random.seed()
-                crit = random.randrange(1, 5)
-                if crit == 3:
-                    classes.my_player.damage = classes.my_player.damage * 2
+            act = int(input("> "))
+            if act == 1:
+                if player.speed >= enemy.speed:
+                    take_damage(player, enemy)
+                    take_damage(enemy, player)
                 else:
-                    classes.my_player.damage = 1
-                classes.enemy.health = classes.enemy.health - classes.my_player.damage
-                print("you did {} HP of damage and the health of the {} is {}".format(classes.my_player.damage,
-                                                                                      classes.enemy.name,
-                                                                                      classes.enemy.health))
-                classes.my_player.hp = classes.my_player.hp - classes.enemy.damage
-                print("you took {} damage by the {}, you have {} health left".format(classes.enemy.damage,
-                                                                                     classes.enemy.name,
-                                                                                     classes.my_player.hp))
-            if action == 2:
+                    take_damage(enemy, player)
+                    take_damage(player, enemy)
+            elif act == 2:
                 pass
-            if action == 3:
-                pass
+            elif act == 3:
+                ran.seed()
+                rand = ran.randint(0, 1)
+                if rand == 0:
+                    print("You have ran away!")
+                    input("input any key to exit")
+                    game(player_cl)
+                if rand == 1:
+                    print("the enemy did not let you escape and took the chance to attack!")
+                    take_damage(player, enemy)
         except ValueError:
-            print("That is not what you can do!")
-        if classes.enemy.health <= 0:
-            combat_true = False
-            print("\n You have killed the {}".format(classes.enemy.name))
-            start_game()
-        if classes.my_player.hp <= 0:
-            speak("You have Died!")
-            sys.exit()
+            pass
 
 
-def create_armor():
-    if classes.my_player.level > 0:
+def level_up(player):
+    print("----------------------")
+    print("Level: {}".format(player.level))
+    print("EXP: {}".format(player.exp))
+    print("Next Level: {}".format(player.level_next))
+    l_health, l_damage = 0.0, 0.0
+    while player.exp >= player.level_next:
+        player.level += 1
+        player.exp = player.exp - player.level_next
+        player.level_next = round(player.level_next * 1.2)
+        l_health += 0.5
+        l_damage += 0.5
+        print("----------------------")
+        print("Level: {}".format(player.level))
+        print("EXP: {}".format(player.exp))
+        print("Next Level: {}".format(player.level_next))
+        hold_health = player.health
+        hold_min_damage = player.damage['min_damage']
+        hold_max_damage = player.damage['max_damage']
+        player.health += l_health
+        player.damage['min_damage'] += l_damage
+        player.damage['max_damage'] += l_damage
+        print("-------------------")
+        print("{} health --> {} health".format(hold_health, player.health))
+        print("{} min damage, {} max damage --> {} min damage, {} max damage".format(hold_min_damage, hold_max_damage,
+                                                                                     player.damage['min_damage'],
+                                                                                     player.damage['min_damage']))
+
+
+def event():
+    rand = ran.randrange(1, 2)
+    if rand == 1:
+        enemy_picker()
+        print("You have encountered an {}".format(enemy_type.name))
+        commands_for_combat(player_cl, enemy_type)
+
+    elif rand == 2:
         pass
 
 
-# input anything into speech, and it will be slowly typed #
-def speak(speech):
-    for char in speech:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(0.2)
+def game(player):
+    option = ['up', 'left', 'right', 'stats', 'exit']
+    while True:
+        print("Up: Move up\nLeft: Move left\nRight: Move right\nStats: Shows your stats\nExit: To leave the game")
+        answer = input("> ").lower().strip()
+        if answer in option:
+            if answer == 'up':
+                event()
+            elif answer == 'left':
+                pass
+            elif answer == 'right':
+                pass
+            elif answer == 'stats':
+                print("Level: {}\nHealth: {}\nMana: {}\nDamage: {} Min damage {} Max damage\nEXP: {}\nSpeed: "
+                      "{}\nDodge: {}\nLevel next: {}\n".format(player.level, player.health, player.mana,
+                                                               player.damage['min_damage'],
+                                                               player.damage['max_damage'],
+                                                               player.exp, player.speed, player.dodge
+                                                               , player.level_next))
+            elif answer == 'exit':
+                exit(0)
+        else:
+            pass
+
+
+def enemy_picker():
+    enemys = ['troll', 'wolf', 'zombie', 'skeleton']
+    global enemy_type
+    enemy = ran.choice(enemys)
+    if enemy == 'troll':
+        enemy_type = Py.troll
+    if enemy == 'wolf':
+        enemy_type = Py.wolf
+    if enemy == 'zombie':
+        enemy_type = Py.zombie
+    if enemy == 'skeleton':
+        enemy_type = Py.skeleton
+
+
+player_class()
