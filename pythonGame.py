@@ -15,5 +15,4 @@ import function
 # start_game()
 # if answer == "no":
 # print("\nok bye")
-# sys.exit()
-function.player_class()
+# sys.exit())

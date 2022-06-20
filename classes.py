@@ -27,7 +27,6 @@ class Player:
         self.speed = speed
         self.dodge = dodge
         self.level = level
-classes.warrior = Player(name, health., mana, damage, exp, speed, dodge, level)
 
 class ArmorHead:
     armor_head_level = 0
@@ -64,4 +63,3 @@ class ArmorBoots:
 # declaring class's into vars #
 enemy = Enemy()
 zone_map = ZoneMap()
-my_player = Player()

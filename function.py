@@ -9,39 +9,20 @@ def player_class():
     print("Pick your class\n1: warrior\n2: mage\n3: archer\n4: thief")
     true = True
     while true:
+        print(warrior.name)
         try:
             answer = int(input("> "))
             if answer == "1":
-                classes.my_player.hp = 13.0
-                classes.my_player.damage = 3.0
-                classes.my_player.mana = 3.0
-                classes.my_player.speed = 1.0
-                classes.my_player.level = 1
-            if answer == "2":
-                classes.my_player.hp = 6.0
-                classes.my_player.damage = 2.5
-                classes.my_player.mana = 15.0
-                classes.my_player.speed = 2.0
-                classes.my_player.level = 1
-            if answer == "3":
-                classes.my_player.hp = 8.0
-                classes.my_player.damage = 1.5
-                classes.my_player.mana = 6.0
-                classes.my_player.speed = 4.0
-                classes.my_player.level = 1
-            if answer == "4":
-                classes.my_player.hp = 10.0
-                classes.my_player.damage = 1
-                classes.my_player.mana = 5.0
-                classes.my_player.speed = 3.0
-                classes.my_player.dodge = 5.0
-                classes.my_player.level = 1
-            true = False
+                warrior = classes.Player('Fatbonks', 10.0, 5.0, [1, 3], 0, 1, 0)
+                print(warrior.name)
         except ValueError:
-            print("That's not what you can pick")
+            print("bad")
+def __int__():
+    warrior = classes.Player('Fatbonks', 10.0, 5.0, [1, 3], 0,1, 0)
+    print(warrior.name)
 
 
-# spawns enemy with a name #
+# enemy with a name #
 def spawn_enemy():
     enemy_names = ['goblin', 'troll', 'wolf']
     classes.enemy.name = random.choice(enemy_names)
