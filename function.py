@@ -1,8 +1,10 @@
+import cmath
+import pickle
 import random as ran
 # import sys
 # import time
-import classes as cl
-import pythonGame as Py
+# import classes as cl
+import pythonGame as py
 
 player_cl = None
 enemy_type = None
@@ -17,19 +19,19 @@ def player_class():
         try:
             act = int(input("> ").lower().strip())
             if act == 1:
-                player_cl = Py.warrior
+                player_cl = py.warrior
                 print(player_cl.class_type)
                 true = False
-            if act == 2:
-                player_cl = Py.mage
+            elif act == 2:
+                player_cl = py.mage
                 print(player_cl.class_type)
                 true = False
-            if act == 3:
-                player_cl = Py.archer
+            elif act == 3:
+                player_cl = py.archer
                 print(player_cl.class_type)
                 true = False
-            if act == 4:
-                player_cl = Py.thief
+            elif act == 4:
+                player_cl = py.thief
                 print(player_cl.class_type)
                 true = False
         except ValueError:
@@ -39,7 +41,7 @@ def player_class():
     ans = input("> ").lower()
     if ans == 'yes':
         game(player_cl)
-    if ans == 'no':
+    elif ans == 'no':
         exit(0)
 
 
@@ -87,9 +89,9 @@ def commands_for_combat(player, enemy):
                     print("You have ran away!")
                     input("input any key to exit")
                     game(player_cl)
-                if rand == 1:
+                elif rand == 1:
                     print("the enemy did not let you escape and took the chance to attack!")
-                    take_damage(player, enemy)
+                    take_damage(enemy, player)
         except ValueError:
             pass
 
@@ -99,6 +101,7 @@ def level_up(player):
     print("Level: {}".format(player.level))
     print("EXP: {}".format(player.exp))
     print("Next Level: {}".format(player.level_next))
+    print("----------------------")
     l_health, l_damage = 0.0, 0.0
     while player.exp >= player.level_next:
         player.level += 1
@@ -164,13 +167,15 @@ def enemy_picker():
     global enemy_type
     enemy = ran.choice(enemys)
     if enemy == 'troll':
-        enemy_type = Py.troll
+        enemy_type = py.troll
     if enemy == 'wolf':
-        enemy_type = Py.wolf
+        enemy_type = py.wolf
     if enemy == 'zombie':
-        enemy_type = Py.zombie
+        enemy_type = py.zombie
     if enemy == 'skeleton':
-        enemy_type = Py.skeleton
+        enemy_type = py.skeleton
 
 
 player_class()
+
+

@@ -1,9 +1,9 @@
-import random
-import sys
-import time
+# import random
+# import sys
+# import time
 import classes as cl
-import function
-warrior = cl.Player("Fatbonks", 13.0, 5.0, {'min_damage': 1.0, 'max_damage': 5.0}, 24, 1, 0, 1, 25, "warrior")
+# import function
+warrior = cl.Player("Fatbonks", 13.0, 5.0, {'min_damage': 1.0, 'max_damage': 5.0}, 0, 1, 0, 1, 25, "warrior")
 mage = cl.Player("Fatbonks", 5.0, 10.0, {'min_damage': 1.0, 'max_damage': 2.0}, 0, 2, 0, 1, 25, "mage")
 archer = cl.Player("Fatbonks", 8.0, 5.0, {'min_damage': 2.0, 'max_damage': 3.0}, 0, 4, 0, 1, 25, "archer")
 thief = cl.Player("Fatbonks", 10.0, 5.0, {'min_damage': 1.0, 'max_damage': 1.0}, 0, 3, 25, 1, 25, "thief")
