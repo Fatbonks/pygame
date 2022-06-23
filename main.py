@@ -13,7 +13,7 @@ class GameLogic:
                       'speed': 1.0, 'dodge': 25},
             'level': {'level': 1, 'level_next': 25, 'exp': 0},
             'bag': {'gold': 50},
-            'magic_slots': {'slot_1', 'slot_2', 'slot_3', 'slot_4'}
+            'magic_slots': {'slot_1': '', 'slot_2': '', 'slot_3': '', 'slot_4': ''}
         }
 
         self.enemy = {
@@ -56,6 +56,8 @@ class GameLogic:
             'air': {},
             'earth': {}
         }
+        self.player['magic_slots']['slot_1'] = self.magic['fire']['small_fireball']
+
 
     # The character selection process at the start of the game
     def player_class(self):
@@ -219,7 +221,6 @@ if __name__ == '__main__':
                         game.player['stats']['dodge'],
                         game.player['level']['level_next']
                     ))
-                time.sleep(5)
             elif answer == 'exit':
                 exit(0)
         else:
