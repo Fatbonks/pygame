@@ -97,9 +97,9 @@ class GameLogic:
 
     def level_up(self):
         print("----------------------")
-        print("Level: {}".format(player.level))
-        print("EXP: {}".format(player.exp))
-        print("Next Level: {}".format(player.level_next))
+        print("Level: {}".format(self.player['level']['level']))
+        print("EXP: {}".format(self.player['level']['exp']))
+        print("Next Level: {}".format(self.player['level']['level_next']))
         print("----------------------")
         l_health, l_damage = 0.0, 0.0
         while player.exp >= player.level_next:
@@ -124,7 +124,6 @@ class GameLogic:
                 "{} min damage, {} max damage --> {} min damage, {} max damage".format(hold_min_damage, hold_max_damage,
                                                                                        player.damage['min_damage'],
                                                                                        player.damage['min_damage']))
-
 
 
 if __name__ == '__main__':
