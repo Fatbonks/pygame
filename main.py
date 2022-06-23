@@ -1,5 +1,5 @@
 import random as ran
-
+import time
 
 class GameLogic:
     # Declare all global variables 
@@ -73,22 +73,47 @@ class GameLogic:
         except ValueError:
             print("Please input a valid number!")
 
-    # Combat between the player and the chosen enemy they are fighting.
-    def take_damage(self):
+    # Levels up the player
+    def level_up(self):
+        l_health, l_damage = 0.0, 0.0
+        while self.player['level']['exp'] >= self.player['level']['level_next']:
+            self.player['level']['level'] += 1
+            self.player['level']['exp'] = self.player['level']['exp'] - self.player['level']['level_next']
+            self.player['level']['level_next'] = round(self.player['level']['level_next'] * 1.2)
+            l_health += 0.5
+            l_damage += 0.5
+            print("----------------------")
+            print("Level: {}".format(self.player['level']['level']))
+            print("EXP: {}".format(self.player['level']['exp']))
+            print("Next Level: {}".format(self.player['level']['level_next']))
+            hold_health = self.player['stats']['health']
+            hold_min_damage = self.player['stats']['damage']['min_damage']
+            hold_max_damage = self.player['stats']['damage']['max_damage']
+            self.player['stats']['max_health'] += l_health
+            self.player['stats']['damage']['min_damage'] += l_damage
+            self.player['stats']['damage']['max_damage'] += l_damage
+            print("-------------------")
+            print("{} max health --> {}  max health".format(self.player['stats']['max_health'] - l_health,
+                                                            self.player['stats']['max_health']))
+            print(
+                "{} min damage, {} max damage --> {} min damage, {} max damage"
+                .format(hold_min_damage, hold_max_damage, self.player['stats']['damage']['min_damage'],
+                        self.player['stats']['damage']['max_damage']))
+
+    # Enemy takes damage from the player
+    def do_damage(self):
         dmg = ran.randint(int(self.player['stats']['damage']['min_damage']),
                           int(self.player['stats']['damage']['max_damage']))
         self.enemy['stats']['health'] -= dmg
-        if self.enemy['stats']['health'] <= 0:
+
+        if self.player['stats']['health'] <= 0:
+            self.enemy['stats']['health'] += dmg
+        elif self.enemy['stats']['health'] <= 0:
             print("------------------")
             print("{} has been slain by {}".format(self.enemy['name'], self.player['name']))
             print("{} has {} health left".format(self.player['name'], self.player['stats']['health']))
             self.player['level']['exp'] += self.enemy['level']['exp']
-
-        elif self.player['stats']['health'] <= 0:
-            print('you have died')
-            input('press any key to leave')
-            exit(0)
-
+            print('you gained {} gold!'.format(self.enemy['drops']['gold']))
         else:
             print("------------------")
             print("{} takes {} damage".format(self.enemy['name'], dmg))
