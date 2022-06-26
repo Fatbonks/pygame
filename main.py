@@ -10,10 +10,24 @@ class GameLogic:
             'class': '',
             'race': 'Human',
             'stats': {'max_health': 13.0, 'health': 13.0, 'mana': 5.0, 'damage': {'min_damage': 1.0, 'max_damage': 5.0},
-                      'speed': 1.0, 'dodge': 25},
+                      'speed': 1.0, 'dodge': 10},
             'level': {'level': 1, 'level_next': 25, 'exp': 0},
             'bag': {'gold': 50},
-            'magic_slots': {'slot_1': '', 'slot_2': '', 'slot_3': '', 'slot_4': ''}
+            'magic_slots':
+                {
+                    'slot_1': {'name': 'slot_1', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
+                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                               },
+                    'slot_2': {'name': 'slot_2', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
+                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                               },
+                    'slot_3': {'name': 'slot_3', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
+                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                               },
+                    'slot_4': {'name': 'slot_4', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
+                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                               }
+                }
         }
 
         self.enemy = {
@@ -51,13 +65,32 @@ class GameLogic:
         }
 
         self.magic = {
-            'fire': {'small_fireball': {'mana_cost': 1.5, 'damage': {'min_damage': 3.0, 'max_damage': 7.0}}},
-            'water': {},
-            'air': {},
-            'earth': {}
-        }
-        self.player['magic_slots']['slot_1'] = self.magic['fire']['small_fireball']
+            'fire': {
+                'fireball':
+                    {'name': 'fireball', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                     'proficiency': 0.0, 'proficiency_level_up': 25.0
 
+                     }
+            },
+            'water': {
+                'water_whip': {
+                    'name': 'water whip', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                    'proficiency': 0.0, 'proficiency_level_up': 25.0
+                }
+            },
+            'air': {
+                'air_blades': {
+                    'name': 'air blades', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                    'proficiency': 0.0, 'proficiency_level_up': 25.0
+                }
+            },
+            'earth': {
+                'earthquake': {
+                    'name': 'earthquake', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                    'proficiency': 0.0, 'proficiency_level_up': 25.0
+                }
+            }
+        }
 
     # The character selection process at the start of the game
     def player_class(self):
@@ -73,6 +106,23 @@ class GameLogic:
                     self.player['stats']['health'] = 5.0
                     self.player['stats']['mana'] = 13.0
                     self.player['stats']['speed'] = 2.0
+                    print('what ability would you like?\n1: Fireball\n2: Water whip\n3: Air blades\n4: earthquake')
+                    ans = int(input('> ').lower().strip())
+                    if ans == 1:
+                        magic = self.magic['fire']['fireball']
+                    if ans == 2:
+                        magic = self.magic['water']['water_whip']
+                    if ans == 3:
+                        magic = self.magic['air']['air_blades']
+                    if ans == 4:
+                        magic = self.magic['earth']['earthquake']
+                    print('what slot would you like to assign it to\n1: slot 1\n2: slot 2\n3: slot 3\n4: slot 4')
+                    ans2 = int(input('> ').lower().strip())
+                    self.magic_slot_adder(magic, ans2)
+                    print(game.player['magic_slots']['slot_1'])
+                    print(game.player['magic_slots']['slot_2'])
+                    print(game.player['magic_slots']['slot_3'])
+                    print(game.player['magic_slots']['slot_4'])
                     break
                 elif act == 3:
                     self.player['class'] = 'archer'
@@ -146,6 +196,37 @@ class GameLogic:
             print("{} health is {}\nThe {} health is {}".format(self.player['name'], self.player['stats']['health'],
                                                                 self.enemy['name'], self.enemy['stats']['health']))
 
+    def do_magical_damage(self, ans):
+        global dmg
+        if ans == 1:
+            dmg = ran.randint(int(self.player['magic_slots']['slot_1']['damage']['min_damage']),
+                              int(self.player['magic_slots']['slot_1']['damage']['max_damage']))
+        elif ans == 2:
+            dmg = ran.randint(int(self.player['magic_slots']['slot_2']['damage']['min_damage']),
+                              int(self.player['magic_slots']['slot_2']['damage']['max_damage']))
+        elif ans == 3:
+            dmg = ran.randint(int(self.player['magic_slots']['slot_3']['damage']['min_damage']),
+                              int(self.player['magic_slots']['slot_3']['damage']['max_damage']))
+        elif ans == 4:
+            dmg = ran.randint(int(self.player['magic_slots']['slot_4']['damage']['min_damage']),
+                              int(self.player['magic_slots']['slot_4']['damage']['max_damage']))
+        self.enemy['stats']['health'] -= dmg
+
+        if self.player['stats']['health'] <= 0:
+            self.enemy['stats']['health'] += dmg
+        elif self.enemy['stats']['health'] <= 0:
+            print("------------------")
+            print("{} has been slain by {}".format(self.enemy['name'], self.player['name']))
+            print("{} has {} health left".format(self.player['name'], self.player['stats']['health']))
+            self.player['bag']['gold'] += self.enemy['drops']['gold']
+            self.player['level']['exp'] += self.enemy['level']['exp']
+            print('you gained {} gold!'.format(self.enemy['drops']['gold']))
+        else:
+            print("------------------")
+            print("{} takes {} damage".format(self.enemy['name'], dmg))
+            print("{} health is {}\nThe {} health is {}".format(self.player['name'], self.player['stats']['health'],
+                                                                self.enemy['name'], self.enemy['stats']['health']))
+
     # Player takes damage from the enemy
     def take_damage(self):
         dmg = ran.randint(int(self.enemy['stats']['damage']['min_damage']),
@@ -166,11 +247,112 @@ class GameLogic:
     def random_enemy(self):
         self.enemy = self.enemies[ran.choice(list(self.enemies))]
 
+    # picks an event to happen each time the player moves
     def event_picker(self):
-        if ran.random() < 0.1:
-            pass
-        if ran.random() < 0.2:
-            pass
+        if ran.random() < 1:
+            self.random_enemy()
+            print("------------------")
+            print("You have encountered an enemy, I hope you can win!")
+            while self.enemy['stats']['health'] > 0:
+                print("------------------")
+                print("1: Attack\n2: Magic attack\n3: Run")
+                try:
+                    ans = int(input("> "))
+                    if ans == 1:
+                        while self.enemy['stats']['health'] > 0 < self.enemy['stats']['health']:
+                            if self.player['stats']['speed'] >= self.enemy['stats']['speed']:
+                                self.do_damage()
+                                if self.player['stats']['dodge'] / 100 > ran.random():
+                                    print("{} dodged the enemies attack".format(self.player['name']))
+                                else:
+                                    self.take_damage()
+                            else:
+                                if self.player['stats']['dodge'] / 100 > ran.random():
+                                    print("{} dodged the enemies attack".format(self.player['name']))
+                                else:
+                                    self.take_damage()
+                                self.do_damage()
+                            time.sleep(2.5)
+                        self.level_up()
+                    if ans == 2:
+                        old_mana = self.player['stats']['mana']
+                        print('your mana is {}'.format(self.player['stats']['mana']))
+                        print('1: {}\n2: {}\n3: {}\n4: {}\n'.format(
+                            self.player['magic_slots']['slot_1']['name'], self.player['magic_slots']['slot_2']['name'],
+                            self.player['magic_slots']['slot_3']['name'], self.player['magic_slots']['slot_4']['name']
+                        )
+                        )
+                        ans_magic_slot = int(input('> ').lower().strip())
+                        if ans_magic_slot == 1 and self.player['magic_slots']['slot_1']['name'] != 'slot_1':
+                            if self.player['stats']['mana'] >= self.player['magic_slots']['slot_1']['mana_cost']:
+                                self.magic_attacking(ans_magic_slot)
+                                self.player['stats']['mana'] -= self.player['magic_slots']['slot_1']['mana_cost']
+                            else:
+                                print(
+                                    'you dont have enough mana you have {} mana left'.format(
+                                        self.player['stats']['mana']
+                                    )
+                                )
+                        elif ans_magic_slot == 2 and self.player['magic_slots']['slot_2']['name'] != 'slot_2':
+                            if self.player['stats']['mana'] >= self.player['magic_slots']['slot_2']['mana_cost']:
+                                self.magic_attacking(ans_magic_slot)
+                                self.player['stats']['mana'] -= self.player['magic_slots']['slot_1']['mana_cost']
+                            else:
+                                print(
+                                    'you dont have enough mana you have {} mana left'.format(
+                                        self.player['stats']['mana']
+                                    )
+                                )
+                        elif ans_magic_slot == 3 and self.player['magic_slots']['slot_3']['name'] != 'slot_3':
+                            if self.player['stats']['mana'] >= self.player['magic_slots']['slot_3']['mana_cost']:
+                                self.magic_attacking(ans_magic_slot)
+                                self.player['stats']['mana'] -= self.player['magic_slots']['slot_3']['mana_cost']
+                            else:
+                                print(
+                                    'you dont have enough mana you have {} mana left'.format(
+                                        self.player['stats']['mana']
+                                    )
+                                )
+                        elif ans_magic_slot == 4 and self.player['magic_slots']['slot_4']['name'] != 'slot_4':
+                            if self.player['stats']['mana'] >= self.player['magic_slots']['slot_4']['mana_cost']:
+                                self.magic_attacking(ans_magic_slot)
+                                self.player['stats']['mana'] -= self.player['magic_slots']['slot_4']['mana_cost']
+                            else:
+                                print(
+                                    'you dont have enough mana you have {} mana left'.format(
+                                        self.player['stats']['mana']
+                                    )
+                                )
+                        else:
+                            print('That slot does not have an ability please use one that does have an a ability')
+                except ValueError:
+                    print('please use the number beside the thing you want to do!')
+
+    def magic_attacking(self, ans):
+        if self.player['stats']['speed'] >= self.enemy['stats']['speed']:
+            self.do_magical_damage(ans)
+            if self.player['stats']['dodge'] / 100 > ran.random():
+                print("{} dodged the enemies attack".format(self.player['name']))
+            else:
+                self.take_damage()
+        else:
+            if self.player['stats']['dodge'] / 100 > ran.random():
+                print("{} dodged the enemies attack".format(self.player['name']))
+            else:
+                self.take_damage()
+            self.do_magical_damage(ans)
+        time.sleep(2.5)
+        self.level_up()
+
+    def magic_slot_adder(self, magic, ans):
+        if ans == 1:
+            self.player['magic_slots']['slot_1'] = magic
+        if ans == 2:
+            self.player['magic_slots']['slot_2'] = magic
+        if ans == 3:
+            self.player['magic_slots']['slot_3'] = magic
+        if ans == 4:
+            self.player['magic_slots']['slot_4'] = magic
 
 
 if __name__ == '__main__':
@@ -188,23 +370,8 @@ if __name__ == '__main__':
             # up is debug command to trigger combat
             if answer == 'up':
                 # Roll a 100% chance to get into a fight
-                if ran.random() < 1:
-                    game.random_enemy()
-                    while game.enemy['stats']['health'] > 0 < game.enemy['stats']['health']:
-                        if game.player['stats']['speed'] >= game.enemy['stats']['speed']:
-                            game.do_damage()
-                            if game.player['stats']['dodge'] / 100 > ran.random():
-                                print("{} dodged the enemies attack".format(game.player['name']))
-                            else:
-                                game.take_damage()
-                        else:
-                            if game.player['stats']['dodge'] / 100 > ran.random():
-                                print("{} dodged the enemies attack".format(game.player['name']))
-                            else:
-                                game.take_damage()
-                            game.do_damage()
-                        time.sleep(2.5)
-                    game.level_up()
+                game.event_picker()
+
             elif answer == 'stats':
                 print("----------------------------")
                 print(
