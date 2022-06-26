@@ -1,6 +1,8 @@
 import random as ran
 import time
 
+old_mana = None
+
 
 class GameLogic:
     # Declare all global variables 
@@ -98,6 +100,7 @@ class GameLogic:
 
     # The character selection process at the start of the game
     def player_class(self):
+        global old_mana
         print("Pick your class\n1: warrior\n2: mage\n3: archer\n4: thief")
         while True:
             try:
@@ -123,10 +126,7 @@ class GameLogic:
                     print('what slot would you like to assign it to\n1: slot 1\n2: slot 2\n3: slot 3\n4: slot 4')
                     ans2 = int(input('> ').lower().strip())
                     self.magic_slot_adder(magic, ans2)
-                    print(game.player['magic_slots']['slot_1'])
-                    print(game.player['magic_slots']['slot_2'])
-                    print(game.player['magic_slots']['slot_3'])
-                    print(game.player['magic_slots']['slot_4'])
+                    old_mana = self.player['stats']['mana']
                     break
                 elif act == 3:
                     self.player['class'] = 'archer'
@@ -255,7 +255,7 @@ class GameLogic:
         if ran.random() < 1:
             self.random_enemy()
             print("------------------")
-            print("You have encountered an enemy, I hope you can win!")
+            print("You have encountered an {}, I hope you can win!".format(self.enemy['name']))
             while self.enemy['stats']['health'] > 0 < self.enemy['stats']['health']:
                 print("------------------")
                 print("1: Attack\n2: Magic attack\n3: Run")
@@ -373,7 +373,6 @@ if __name__ == '__main__':
             if answer == 'up':
                 # 100% chance to get into a fight
                 game.event_picker()
-                old_mana = game.player['stats']['mana']
                 game.player['stats']['mana'] = old_mana
 
             elif answer == 'stats':
