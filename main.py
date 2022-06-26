@@ -5,6 +5,7 @@ import time
 class GameLogic:
     # Declare all global variables 
     def __init__(self):
+        # Dictionary for the player
         self.player = {
             'name': 'john',
             'class': '',
@@ -30,10 +31,12 @@ class GameLogic:
                 }
         }
 
+        # Dictionary for the enemy the player is currently fighting
         self.enemy = {
 
         }
 
+        # Dictionary for the enemies of the player
         self.enemies = {
             'troll': {
                 'name': 'troll',
@@ -64,6 +67,7 @@ class GameLogic:
             }
         }
 
+        # Dictionary of available spells for the player to learn
         self.magic = {
             'fire': {
                 'fireball':
@@ -367,7 +371,7 @@ if __name__ == '__main__':
         if answer in option:
             # up is debug command to trigger combat
             if answer == 'up':
-                # Roll a 100% chance to get into a fight
+                # 100% chance to get into a fight
                 game.event_picker()
                 old_mana = game.player['stats']['mana']
                 game.player['stats']['mana'] = old_mana
