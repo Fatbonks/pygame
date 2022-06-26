@@ -197,7 +197,6 @@ class GameLogic:
                                                                 self.enemy['name'], self.enemy['stats']['health']))
 
     def do_magical_damage(self, ans):
-        global dmg
         if ans == 1:
             dmg = ran.randint(int(self.player['magic_slots']['slot_1']['damage']['min_damage']),
                               int(self.player['magic_slots']['slot_1']['damage']['max_damage']))
@@ -253,7 +252,7 @@ class GameLogic:
             self.random_enemy()
             print("------------------")
             print("You have encountered an enemy, I hope you can win!")
-            while self.enemy['stats']['health'] > 0:
+            while self.enemy['stats']['health'] > 0 < self.enemy['stats']['health']:
                 print("------------------")
                 print("1: Attack\n2: Magic attack\n3: Run")
                 try:
@@ -275,7 +274,6 @@ class GameLogic:
                             time.sleep(2.5)
                         self.level_up()
                     if ans == 2:
-                        old_mana = self.player['stats']['mana']
                         print('your mana is {}'.format(self.player['stats']['mana']))
                         print('1: {}\n2: {}\n3: {}\n4: {}\n'.format(
                             self.player['magic_slots']['slot_1']['name'], self.player['magic_slots']['slot_2']['name'],
@@ -347,11 +345,11 @@ class GameLogic:
     def magic_slot_adder(self, magic, ans):
         if ans == 1:
             self.player['magic_slots']['slot_1'] = magic
-        if ans == 2:
+        elif ans == 2:
             self.player['magic_slots']['slot_2'] = magic
-        if ans == 3:
+        elif ans == 3:
             self.player['magic_slots']['slot_3'] = magic
-        if ans == 4:
+        elif ans == 4:
             self.player['magic_slots']['slot_4'] = magic
 
 
@@ -371,6 +369,8 @@ if __name__ == '__main__':
             if answer == 'up':
                 # Roll a 100% chance to get into a fight
                 game.event_picker()
+                old_mana = game.player['stats']['mana']
+                game.player['stats']['mana'] = old_mana
 
             elif answer == 'stats':
                 print("----------------------------")
