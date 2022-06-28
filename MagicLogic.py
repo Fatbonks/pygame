@@ -2,17 +2,24 @@ import Pipe as game
 
 
 def give_magic():
-    print('what spell would you like?\n0: Fireball\n1: Water whip\n2: Air blades\n3: earthquake')
+    game.print_dialogue('Learn a spell of legends young mage, now which do you desire?\n1: Fireball\n2: Water '
+                        'whip\n3: Air blades\n4: earthquake\n5: I don\'t know')
     ans = int(input('> ').lower().strip())
-    if ans == 0:
+    if ans == 1:
         magic = game.gameData.magic['fire']['fireball']
-    elif ans == 1:
-        magic = game.gameData.magic['water']['water_whip']
     elif ans == 2:
-        magic = game.gameData.magic['air']['air_blades']
+        magic = game.gameData.magic['water']['water_whip']
     elif ans == 3:
+        magic = game.gameData.magic['air']['air_blades']
+    elif ans == 4:
         magic = game.gameData.magic['earth']['earthquake']
-    print('what slot would you like to assign it to\n0: slot 0\n1: slot 1\n2: slot 2\n3: slot 3')
+    elif ans == 5:
+        game.print_dialogue('Fool a mage must always be certain of themself')
+        game.print_dialogue('Be certain when to hold in their farts or not, it\'s a matter of life and death!')
+        game.print_dialogue('I see you find that funny don\'t you well we will teach you no longer we will see whose '
+                            'laughing then!')
+        return
+    game.print_dialogue('what slot would you like to assign it to\n1: slot 1\n2: slot 2\n3: slot 3\n4: slot 4')
     ans2 = int(input('> ').lower().strip())
 
     magic_slot_adder(magic, ans2)
@@ -21,33 +28,29 @@ def give_magic():
 def magic_attacking(ans):
     if game.gameData.player['stats']['speed'] >= game.gameData.enemy['stats']['speed']:
         do_magical_damage(ans)
-        game.time.sleep(2.5)
         if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
             if game.gameData.enemy['stats']['health'] > 0:
-                print('{} dodged the enemies attack'.format(game.gameData.player['name']))
+                game.print_dialogue('{} dodged the enemies attack'.format(game.gameData.player['name']))
         else:
             game.combatLogic.take_damage()
-            game.time.sleep(2.5)
     else:
         if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
             if game.gameData.enemy['stats']['health'] > 0:
-                print('{} dodged the enemies attack'.format(game.gameData.player['name']))
+                game.print_dialogue('{} dodged the enemies attack'.format(game.gameData.player['name']))
         else:
             game.combatLogic.take_damage()
-            game.time.sleep(2.5)
             do_magical_damage(ans)
-    game.time.sleep(2.5)
     game.levelLogic.level_up()
 
 
 def magic_slot_adder(magic, ans):
-    if len(game.gameData.player['magic_slots']) - 1 >= ans >= 0:
+    if len(game.gameData.player['magic_slots']) >= ans >= 1:
         if game.gameData.player['magic_slots']['slot_{}'.format(ans)]['name'] == '':
             game.gameData.player['magic_slots']['slot_{}'.format(ans)] = magic
 
 
 def do_magical_damage(ans):
-    if len(game.gameData.player['magic_slots']) - 1 >= ans >= 0:
+    if len(game.gameData.player['magic_slots']) >= ans >= 1:
         dmg = game.ran.randint(int(game.gameData.player['magic_slots']['slot_{}'.format(ans)]['damage']['min_damage']),
                                int(game.gameData.player['magic_slots']['slot_{}'.format(ans)]['damage']['max_damage']))
     game.gameData.enemy['stats']['health'] -= dmg
@@ -55,13 +58,13 @@ def do_magical_damage(ans):
     if game.gameData.player['stats']['health'] <= 0:
         game.gameData.enemy['stats']['health'] += dmg
     elif game.gameData.enemy['stats']['health'] <= 0:
-        print('------------------')
-        print('{} has been slain by {}'.format(game.gameData.enemy['name'], game.gameData.player['name']))
-        print('{} has {} health left'.format(game.gameData.player['name'], game.gameData.player['stats']['health']))
+        game.print_dialogue('------------------')
+        game.print_dialogue('{} has been slain by {}'.format(game.gameData.enemy['name'], game.gameData.player['name']))
+        game.print_dialogue('{} has {} health left'.format(game.gameData.player['name'], game.gameData.player['stats']['health']))
         gain_health = 0
         gain_health += round(game.gameData.player['stats']['max_health'] / 2)
         game.gameData.player['stats']['health'] += gain_health
-        print('you gain {} hp back!'.format(gain_health))
+        game.print_dialogue('you gain {} hp back!'.format(gain_health))
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
         game.gameData.player['bag']['gold'] += game.gameData.enemy['drops']['gold']

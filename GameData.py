@@ -16,9 +16,6 @@ class GameData:
             'bag': {'gold': 50},
             'magic_slots':
                 {
-                    'slot_0': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
-                               },
                     'slot_1': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
                                'proficiency': 0.0, 'proficiency_level_up': 25.0
                                },
@@ -26,6 +23,9 @@ class GameData:
                                'proficiency': 0.0, 'proficiency_level_up': 25.0
                                },
                     'slot_3': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
+                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                               },
+                    'slot_4': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
                                'proficiency': 0.0, 'proficiency_level_up': 25.0
                                }
                 }

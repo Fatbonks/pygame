@@ -5,7 +5,7 @@ import Pipe as game
 
 # The set up for the player
 def player_class():
-    print("Pick your class\n1: warrior\n2: mage\n3: archer\n4: thief")
+    game.print_dialogue("Pick your class\n1: warrior\n2: mage\n3: archer\n4: thief")
     while True:
         try:
             act = int(input("> ").lower().strip())
@@ -38,18 +38,17 @@ def player_class():
                 game.gameData.player['stats']['damage']['min_damage'] = 1
                 game.gameData.player['stats']['damage']['max_damage'] = 1
                 break
-            print("Please input a valid number!")
+            game.print_dialogue("Please input a valid number!")
         except ValueError:
-            print("Please input a valid number!")
+            game.print_dialogue("Please input a valid number!")
 
     # Welcome text
-    print("------------")
-    print("Welcome to {RPGName}")
+    game.print_dialogue("------------")
+    game.print_dialogue("Welcome to {RPGName}")
     if input("What would you like to name yourself?\n> ") != "":
-        print("Stupid! a baby can't name itself!")
+        game.print_dialogue("Stupid! a baby can't name itself!")
     game.gameData.player['name'] = game.ran.choice(game.gameData.names)
-    print("Your name is now {}".format(game.gameData.player['name']))
-    time.sleep(2.5)
+    game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
 
 
 if __name__ == '__main__':

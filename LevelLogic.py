@@ -1,32 +1,28 @@
-import time
-
 import Pipe as game
 
 
 def level_up():
     l_health, l_damage = 0.0, 0.0
+    l_health += 1
+    l_damage += 1
     while game.gameData.player['level']['exp'] >= game.gameData.player['level']['level_next']:
         game.gameData.player['level']['level'] += 1
         game.gameData.player['level']['exp'] = game.gameData.player['level']['exp'] - \
                                                game.gameData.player['level']['level_next']
         game.gameData.player['level']['level_next'] = round(game.gameData.player['level']['level_next'] * 1.2)
-        l_health += 1
-        l_damage += 1
-        print("----------------------")
-        print("Level: {}".format(game.gameData.player['level']['level']))
-        print("EXP: {}".format(game.gameData.player['level']['exp']))
-        print("Next Level: {}".format(game.gameData.player['level']['level_next']))
-        time.sleep(2.5)
-        hold_health = game.gameData.player['stats']['health']
+        game.print_dialogue("----------------------")
+        game.print_dialogue("Level: {}".format(game.gameData.player['level']['level']))
+        game.print_dialogue("EXP: {}".format(game.gameData.player['level']['exp']))
+        game.print_dialogue("Next Level: {}".format(game.gameData.player['level']['level_next']))
         hold_min_damage = game.gameData.player['stats']['damage']['min_damage']
         hold_max_damage = game.gameData.player['stats']['damage']['max_damage']
         game.gameData.player['stats']['max_health'] += l_health
         game.gameData.player['stats']['damage']['min_damage'] += l_damage
         game.gameData.player['stats']['damage']['max_damage'] += l_damage
-        print("-------------------")
-        print("{} max health --> {}  max health".format(game.gameData.player['stats']['max_health'] - l_health,
+        game.print_dialogue("-------------------")
+        game.print_dialogue("{} max health --> {}  max health".format(game.gameData.player['stats']['max_health'] - l_health,
                                                         game.gameData.player['stats']['max_health']))
-        print(
+        game.print_dialogue(
             "{} min damage, {} max damage --> {} min damage, {} max damage"
             .format(hold_min_damage, hold_max_damage, game.gameData.player['stats']['damage']['min_damage'],
                     game.gameData.player['stats']['damage']['max_damage']))

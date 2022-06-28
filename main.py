@@ -12,8 +12,8 @@ if __name__ == '__main__':
     # Main game loop
     while True:
         option = ['up', 'left', 'right', 'stats', 'exit']
-        print('----------------------------')
-        print("Up: Move up\nStats: Shows your stats\nExit: To leave the game")
+        game.print_dialogue('----------------------------')
+        game.print_dialogue("Up: Move up\nStats: Shows your stats\nExit: To leave the game")
         answer = input("> ").lower().strip()
         if answer in option:
             # up is debug command to trigger combat
@@ -24,42 +24,48 @@ if __name__ == '__main__':
                 # 100% chance to get into a fight
                 event_picker()
             elif answer == 'stats':
-                print("----------------------------")
-                print("Level: {}".format(game.gameData.player['level']['level']))
-                print("Max health: {}".format(game.gameData.player['stats']['max_health']))
-                print("Health: {}".format(game.gameData.player['stats']['health']))
-                print("Max mana: {}".format(game.gameData.player['stats']['max_mana']))
-                print("Mana: {}".format(game.gameData.player['stats']['mana']))
-                print("Min damage: {}\nMax damage: {}"
-                      .format(game.gameData.player['stats']['damage']['min_damage'],
-                              game.gameData.player['stats']['damage']['max_damage']))
-                print("EXP: {}".format(game.gameData.player['level']['exp']))
-                print("Speed: {}".format(game.gameData.player['stats']['speed']))
-                print("Dodge: {}".format(game.gameData.player['stats']['dodge']))
-                print("Level next: {}".format(game.gameData.player['level']['level_next']))
+                game.print_dialogue("----------------------------")
+                game.print_dialogue("Level: {}".format(game.gameData.player['level']['level']))
+                game.print_dialogue("Max health: {}".format(game.gameData.player['stats']['max_health']))
+                game.print_dialogue("Health: {}".format(game.gameData.player['stats']['health']))
+                game.print_dialogue("Max mana: {}".format(game.gameData.player['stats']['max_mana']))
+                game.print_dialogue("Mana: {}".format(game.gameData.player['stats']['mana']))
+                game.print_dialogue("Min damage: {}\nMax damage: {}"
+                                    .format(game.gameData.player['stats']['damage']['min_damage'],
+                                            game.gameData.player['stats']['damage']['max_damage']))
+                game.print_dialogue("EXP: {}".format(game.gameData.player['level']['exp']))
+                game.print_dialogue("Speed: {}".format(game.gameData.player['stats']['speed']))
+                game.print_dialogue("Dodge: {}".format(game.gameData.player['stats']['dodge']))
+                game.print_dialogue("Level next: {}".format(game.gameData.player['level']['level_next']))
                 # Test this when enemies are working again
-                for spell_slot in range(len(game.gameData.player['magic_slots'])):
+                # We add 1 because we wanted slots to start at 1 not 0.
+                for spell_slot in range(1, len(game.gameData.player['magic_slots']) + 1):
                     if game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['name'] != '':
-                        print("slot {} is active".format(spell_slot))
-                        print("Spell in slot {}".format(spell_slot))
-                        print("name: {}".format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]
-                                                ['name']))
-                        print("mana cost: {}".format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]
-                                                     ['mana_cost']))
-                        print("Min damage: {}\nMax damage: {}".format(game.gameData.player['magic_slots']
-                                                                      ['slot_{}'.format(spell_slot)]['damage']
-                                                                      ['min_damage'],
-                                                                      game.gameData.player['magic_slots']
-                                                                      ['slot_{}'.format(spell_slot)]['damage']
-                                                                      ['max_damage']))
-                        print("Proficiency: {}".format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)
-                                                       ]['proficiency']))
-                        print("Proficiency level up: {}".format(game.gameData.player['magic_slots']['slot_{}'
-                                                                .format(spell_slot)]['proficiency_level_up']))
+                        game.print_dialogue("Spell in slot {}".format(spell_slot))
+                        game.print_dialogue(
+                            "name: {}".format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]
+                                              ['name']))
+                        game.print_dialogue(
+                            "mana cost: {}".format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]
+                                                   ['mana_cost']))
+                        game.print_dialogue("Min damage: {}\nMax damage: {}".format(game.gameData.player['magic_slots']
+                                                                                    ['slot_{}'.format(spell_slot)][
+                                                                                        'damage']
+                                                                                    ['min_damage'],
+                                                                                    game.gameData.player['magic_slots']
+                                                                                    ['slot_{}'.format(spell_slot)][
+                                                                                        'damage']
+                                                                                    ['max_damage']))
+                        game.print_dialogue(
+                            "Proficiency: {}".format(game.gameData.player['magic_slots'] \
+                                                         ['slot_{}'.format(spell_slot)]['proficiency']))
+                        game.print_dialogue(
+                            "Proficiency level up: {}".format(game.gameData.player['magic_slots']['slot_{}'
+                                                              .format(spell_slot)]['proficiency_level_up']))
             elif answer == 'exit':
                 exit(0)
         else:
-            print('please use a word to select your choices')
+            game.print_dialogue('please use a word to select your choices')
 
 if __name__ == '__main__':
     exit('Please run main.py')
