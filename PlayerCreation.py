@@ -13,6 +13,7 @@ def player_class():
                 game.gameData.player['class'] = 'warrior'
                 break
             elif act == 2:
+                game.gameData.player['stats']['max_health'] = 5.0
                 game.gameData.player['class'] = 'mage'
                 game.gameData.player['stats']['health'] = 5.0
                 game.gameData.player['stats']['max_mana'] = 13.0
@@ -23,11 +24,13 @@ def player_class():
                 game.magicLogic.give_magic()
                 break
             elif act == 3:
+                game.gameData.player['stats']['max_health'] = 10.0
                 game.gameData.player['class'] = 'archer'
                 game.gameData.player['stats']['health'] = 10.0
                 game.gameData.player['stats']['speed'] = 4.0
                 break
             elif act == 4:
+                game.gameData.player['stats']['max_health'] = 8.0
                 game.gameData.player['class'] = 'thief'
                 game.gameData.player['stats']['health'] = 8.0
                 game.gameData.player['stats']['speed'] = 3.0

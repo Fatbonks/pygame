@@ -8,7 +8,7 @@ def level_up():
     while game.gameData.player['level']['exp'] >= game.gameData.player['level']['level_next']:
         game.gameData.player['level']['level'] += 1
         game.gameData.player['level']['exp'] = game.gameData.player['level']['exp'] - \
-                                               game.gameData.playerr['level']['level_next']
+                                               game.gameData.player['level']['level_next']
         game.gameData.player['level']['level_next'] = round(game.gameData.player['level']['level_next'] * 1.2)
         l_health += 1
         l_damage += 1

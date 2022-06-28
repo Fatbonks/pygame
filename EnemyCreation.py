@@ -1,8 +1,8 @@
 import Pipe as game
 
 enemy_names = [
-    'jeff the angry miller', 'joe the angry butcher', 'bobenstein', 'a hobgoblin', 'lost Leo', 'Cody the elf',
-    'dog, the evil reincarnated', 'a blue slime', 'a old wolf', 'smith the smithing smither', 'smeckle man',
+    'jeff the angry miller', 'joe the angry butcher', 'bobenstein', 'hobgoblin', 'lost Leo', 'Cody the elf',
+    'dog', 'slime the god destroyer', 'old man ', 'smith the smithing smither', 'smeckle man',
     'bob the horse', 'Milf destroyer 3000'
                ]
 min_health = 5

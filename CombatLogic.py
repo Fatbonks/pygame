@@ -9,28 +9,29 @@ def do_damage():
     if game.gameData.player['stats']['health'] <= 0:
         game.gameData.enemy['stats']['health'] += dmg
     elif game.gameData.enemy['stats']['health'] <= 0:
-        print("------------------")
-        print("{} has been slain by {}".format(game.gameData.enemy['name'], game.gameData.player['name']))
-        print("{} has {:.2f} health left".format(game.gameData.player['name'], game.gameData.player['stats']['health']))
+        game.print_dialogue("------------------")
+        game.print_dialogue("{} has been slain by {}".format(game.gameData.enemy['name'], game.gameData.player['name']))
+        game.print_dialogue(
+            "{} has {:.1f} health left".format(game.gameData.player['name'], game.gameData.player['stats']['health']))
         gain_health = 0
-        gain_health += game.gameData.player['stats']['max_health'] / 2
+        gain_health += round(game.gameData.player['stats']['max_health'] / 2)
         game.gameData.player['stats']['health'] += gain_health
         print('you gain {} hp back!'.format(gain_health))
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
         game.gameData.player['bag']['gold'] += game.gameData.enemy['drops']['gold']
         game.gameData.player['level']['exp'] += game.gameData.enemy['level']['exp']
-        print('you gained {} smeckles! and you gained {} EXP'.format(
+        game.print_dialogue('you gained {} smeckles! and {} EXP'.format(
             game.gameData.enemy['drops']['gold'], game.gameData.enemy['level']['exp']
             )
         )
     else:
-        print("------------------")
-        print("{} takes {} damage".format(game.gameData.enemy['name'], dmg))
-        print("{} health is {}\nThe {} health is {}".format(game.gameData.player['name'],
-                                                            game.gameData.player['stats']['health'],
-                                                            game.gameData.enemy['name'],
-                                                            game.gameData.enemy['stats']['health']))
+        game.print_dialogue("------------------")
+        game.print_dialogue("{} takes {} damage".format(game.gameData.enemy['name'], dmg))
+        game.print_dialogue("{} health is {}\n {} health is {}".format(game.gameData.player['name'],
+                                                                       game.gameData.player['stats']['health'],
+                                                                       game.gameData.enemy['name'],
+                                                                       game.gameData.enemy['stats']['health']))
 
 
 def take_damage():
@@ -76,7 +77,6 @@ def in_combat():
                         do_damage()
                 else:
                     take_damage()
-                    game.time.sleep(2.5)
             else:
                 if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
                     if game.gameData.enemy['stats']['health'] > 0:
