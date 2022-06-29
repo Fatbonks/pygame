@@ -67,7 +67,7 @@ def in_combat():
     )
     while game.gameData.player['stats']['health'] > 0 and game.gameData.enemy['stats']['health'] > 0:
         game.print_dialogue("------------------")
-        game.print_dialogue("1: Attack\n2: Magic attack\n3: Run")
+        game.print_dialogue("1: Attack\n2: Magic attack\n3: Run\n4: call god to give you drugs")
         ans = int(input('> ').lower().strip())
         if ans == 1:
             if game.gameData.player['stats']['speed'] >= game.gameData.enemy['stats']['speed']:
@@ -123,7 +123,8 @@ def in_combat():
                 game.print_dialogue(
                     'the {} did not let you escape and he attacked you'.format(game.gameData.enemy['name']))
                 take_damage()
-
+        elif ans == 4:
+            pass
 
 if __name__ == '__main__':
     exit('Please run main.py')
