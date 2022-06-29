@@ -13,10 +13,7 @@ def do_damage():
         game.print_dialogue("{} has been slain by {}".format(game.gameData.enemy['name'], game.gameData.player['name']))
         game.print_dialogue(
             "{} has {:.1f} health left".format(game.gameData.player['name'], game.gameData.player['stats']['health']))
-        gain_health = 0
-        gain_health += round(game.gameData.player['stats']['max_health'] / 2)
-        game.gameData.player['stats']['health'] += gain_health
-        game.print_dialogue('you gain {} hp back!'.format(gain_health))
+        game.gameData.has_healed = False
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
         game.gameData.player['bag']['gold'] += game.gameData.enemy['drops']['gold']
@@ -25,6 +22,7 @@ def do_damage():
             game.gameData.enemy['drops']['gold'], game.gameData.enemy['level']['exp']
         )
         )
+        game.levelLogic.level_up()
     else:
         game.print_dialogue("------------------")
         game.print_dialogue("{} takes {} damage".format(game.gameData.enemy['name'], dmg))
@@ -103,7 +101,7 @@ def in_combat():
                             game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['mana_cost']:
                         game.magicLogic.magic_attacking(ans_magic_slot)
                         game.gameData.player['stats']['mana'] -= \
-                        game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['mana_cost']
+                            game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['mana_cost']
                     else:
                         game.print_dialogue(
                             'you dont have enough mana you have {} mana left'.format(
@@ -124,7 +122,8 @@ def in_combat():
                     'the {} did not let you escape and he attacked you'.format(game.gameData.enemy['name']))
                 take_damage()
         elif ans == 4:
-            pass
+            game.healingLogic.healing_drugs()
+
 
 if __name__ == '__main__':
     exit('Please run main.py')

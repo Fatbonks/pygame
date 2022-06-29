@@ -49,26 +49,26 @@ class GameData:
         self.magic = {
             'fire': {
                 'fireball':
-                    {'name': 'fireball', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                    {'name': 'fireball', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
                      'proficiency': 0.0, 'proficiency_level_up': 25.0
 
                      }
             },
             'water': {
                 'water_whip': {
-                    'name': 'water whip', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                    'name': 'water whip', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
                     'proficiency': 0.0, 'proficiency_level_up': 25.0
                 }
             },
             'air': {
                 'air_blades': {
-                    'name': 'air blades', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                    'name': 'air blades', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
                     'proficiency': 0.0, 'proficiency_level_up': 25.0
                 }
             },
             'earth': {
                 'earthquake': {
-                    'name': 'earthquake', 'mana_cost': 3.5, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
+                    'name': 'earthquake', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
                     'proficiency': 0.0, 'proficiency_level_up': 25.0
                 }
             }
@@ -77,6 +77,8 @@ class GameData:
         # Array of possible player names
         # We will keep adding names as the game becomes more developed
         self.names = ['Bill', 'John', 'Dave', 'Cow', 'Tiffany', 'Tod', 'Elliot', 'Mexican jesus', 'cody']
+
+        self.has_healed = False
 
 
 if __name__ == '__main__':

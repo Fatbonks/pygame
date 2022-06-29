@@ -31,12 +31,14 @@ def magic_attacking(ans):
         if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
             if game.gameData.enemy['stats']['health'] > 0:
                 game.print_dialogue('{} dodged the enemies attack'.format(game.gameData.player['name']))
+                do_magical_damage(ans)
         else:
             game.combatLogic.take_damage()
     else:
         if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
             if game.gameData.enemy['stats']['health'] > 0:
                 game.print_dialogue('{} dodged the enemies attack'.format(game.gameData.player['name']))
+                do_magical_damage(ans)
         else:
             game.combatLogic.take_damage()
             do_magical_damage(ans)
@@ -62,12 +64,10 @@ def do_magical_damage(ans):
         game.print_dialogue('{} has been slain by {}'.format(game.gameData.enemy['name'], game.gameData.player['name']))
         game.print_dialogue(
             '{} has {} health left'.format(game.gameData.player['name'], game.gameData.player['stats']['health']))
-        gain_health = 0
-        gain_health += round(game.gameData.player['stats']['max_health'] / 2)
-        game.gameData.player['stats']['health'] += gain_health
-        game.print_dialogue('you gain {} hp back!'.format(gain_health))
+        game.gameData.has_healed = False
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
+        game.levelLogic.level_up()
 
         # Restore mana to max if they are a mage and then give rewards for winning the fight.
         if game.gameData.player['class'] == 'mage':

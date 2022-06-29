@@ -53,6 +53,7 @@ if __name__ == '__main__':
                 game.print_dialogue("Speed: {}".format(game.gameData.player['stats']['speed']))
                 game.print_dialogue("Dodge: {}".format(game.gameData.player['stats']['dodge']))
                 game.print_dialogue("Level next: {}".format(game.gameData.player['level']['level_next']))
+                game.print_dialogue("smeckles: {}".format(game.gameData.player['bag']['gold']))
                 # Test this when enemies are working again
                 # We add 1 because we wanted slots to start at 1 not 0.
                 for spell_slot in range(1, len(game.gameData.player['magic_slots']) + 1):
