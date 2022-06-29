@@ -45,10 +45,12 @@ def player_class():
     # Welcome text
     game.print_dialogue("------------")
     game.print_dialogue("Welcome to {RPGName}")
-    if input("What would you like to name yourself?\n> ") != "":
-        game.print_dialogue("Stupid! a baby can't name itself!")
     game.gameData.player['name'] = game.ran.choice(game.gameData.names)
-    game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
+    if input("What would you like to name yourself?\n> ") != "":
+        game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
+        game.print_dialogue("Stupid {}! a baby can't name itself!".format(game.gameData.player['name']))
+    else:
+        game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
 
 
 if __name__ == '__main__':

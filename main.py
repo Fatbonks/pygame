@@ -8,11 +8,21 @@ def event_picker():
 
 def legal_disclaimer():
     game.print_dialogue("By playing this game you agree to the following terms:")
-    game.print_dialogue("1:")
-    game.print_dialogue()
+    game.print_dialogue("1: You agree that you are of legal age to agree to the terms stated.")
+    game.print_dialogue("2: You agree that you have read and understood all of these terms.")
+    game.print_dialogue("3: You agree that you are comfortable with reading text with disturbing themes such as the "
+                        "following:")
+    game.print_dialogue("Sexual violence, Physical violence, Drug abuse, and other harmful language.")
+    game.print_dialogue("4: You agree that all characters in this game are works of fiction and any connection to "
+                        "the real world is just a coincidence.")
+    if game.get_input("By typing 'Yes' you agree to all the terms stated.") != "Yes":
+        exit("You did not type 'Yes' exactly as stated above, therefore, we cannot let you play")
+    else:
+        game.print_dialogue("Welcome to {RPGName}")
 
 
 if __name__ == '__main__':
+    # legal_disclaimer()
     # Runs at the start of the game
     game.playerCreation.player_class()
     # Main game loop

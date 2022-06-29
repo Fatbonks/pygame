@@ -1,3 +1,5 @@
+import select
+
 from GameData import GameData
 import EnemyCreation as enemyCreation
 import PlayerCreation as playerCreation
@@ -10,14 +12,12 @@ import time
 import sys
 
 
-def get_integer_input(question, acceptable_high, acceptable_low):
-    while True:
-        try:
-            output = int(input(question))
-        except ValueError:
-            pass
-        if acceptable_high >= output >= acceptable_low:
-            return output
+def get_input(question):
+    sys.stdout.write(question)
+    sys.stdout.flush()
+
+    print_dialogue("\n> ")
+    return sys.stdin.readline().replace("\n", "")
 
 
 def print_dialogue(dialogue):
