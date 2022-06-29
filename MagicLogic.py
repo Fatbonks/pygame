@@ -60,13 +60,18 @@ def do_magical_damage(ans):
     elif game.gameData.enemy['stats']['health'] <= 0:
         game.print_dialogue('------------------')
         game.print_dialogue('{} has been slain by {}'.format(game.gameData.enemy['name'], game.gameData.player['name']))
-        game.print_dialogue('{} has {} health left'.format(game.gameData.player['name'], game.gameData.player['stats']['health']))
+        game.print_dialogue(
+            '{} has {} health left'.format(game.gameData.player['name'], game.gameData.player['stats']['health']))
         gain_health = 0
         gain_health += round(game.gameData.player['stats']['max_health'] / 2)
         game.gameData.player['stats']['health'] += gain_health
         game.print_dialogue('you gain {} hp back!'.format(gain_health))
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
+
+        # Restore mana to max if they are a mage and then give rewards for winning the fight.
+        if game.gameData.player['class'] == 'mage':
+            game.gameData.player['stats']['mana'] = game.gameData.player['stats']['max_mana']
         game.gameData.player['bag']['gold'] += game.gameData.enemy['drops']['gold']
         game.gameData.player['level']['exp'] += game.gameData.enemy['level']['exp']
         game.print_dialogue('you gained {} smeckles! and {} EXP'.format(
@@ -77,9 +82,9 @@ def do_magical_damage(ans):
         game.print_dialogue('------------------')
         game.print_dialogue('{} takes {} damage'.format(game.gameData.enemy['name'], dmg))
         game.print_dialogue('{} health is {}\n {} health is {}'.format(game.gameData.player['name'],
-                                                         game.gameData.player['stats']['health'],
-                                                         game.gameData.enemy['name'],
-                                                         game.gameData.enemy['stats']['health']))
+                                                                       game.gameData.player['stats']['health'],
+                                                                       game.gameData.enemy['name'],
+                                                                       game.gameData.enemy['stats']['health']))
 
 
 if __name__ == '__main__':

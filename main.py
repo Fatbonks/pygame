@@ -6,6 +6,12 @@ def event_picker():
         game.combatLogic.in_combat()
 
 
+def legal_disclaimer():
+    game.print_dialogue("By playing this game you agree to the following terms:")
+    game.print_dialogue("1:")
+    game.print_dialogue()
+
+
 if __name__ == '__main__':
     # Runs at the start of the game
     game.playerCreation.player_class()
