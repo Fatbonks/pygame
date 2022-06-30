@@ -31,7 +31,8 @@ def magic_attacking(ans):
         if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
             if game.gameData.enemy['stats']['health'] > 0:
                 game.print_dialogue('{} dodged the enemies attack'.format(game.gameData.player['name']))
-                do_magical_damage(ans)
+                if game.gameData.player['class'] == 'thief':
+                    do_magical_damage(ans)
         else:
             game.combatLogic.take_damage()
     else:

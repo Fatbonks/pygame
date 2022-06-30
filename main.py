@@ -46,7 +46,7 @@ if __name__ == '__main__':
                 game.print_dialogue("Health: {}".format(game.gameData.player['stats']['health']))
                 game.print_dialogue("Max mana: {}".format(game.gameData.player['stats']['max_mana']))
                 game.print_dialogue("Mana: {}".format(game.gameData.player['stats']['mana']))
-                game.print_dialogue("Min damage: {}\nMax damage: {}"
+                game.print_dialogue("{} - {} damage"
                                     .format(game.gameData.player['stats']['damage']['min_damage'],
                                             game.gameData.player['stats']['damage']['max_damage']))
                 game.print_dialogue("EXP: {}".format(game.gameData.player['level']['exp']))

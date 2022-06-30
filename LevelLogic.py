@@ -2,7 +2,6 @@ import Pipe as game
 
 
 def level_up():
-    game.gameData.player['stats']['mana'] = game.gameData.player['stats']['max_mana']
     l_health, l_damage, l_mana = 0.0, 0.0, 1
     l_health += 1
     l_damage += 1
@@ -29,7 +28,7 @@ def level_up():
             "{} max mana --> {}  max mana".format(
                 game.gameData.player['stats']['max_mana'] - l_mana,
                 game.gameData.player['stats']['max_mana']
-                                                  )
+            )
 
         )
         game.print_dialogue(
@@ -38,6 +37,5 @@ def level_up():
                     game.gameData.player['stats']['damage']['max_damage']))
 
 
-
 if __name__ == '__main__':
-    exit('Please run main.py')
+    pass

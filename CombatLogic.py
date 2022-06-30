@@ -73,7 +73,8 @@ def in_combat():
                 if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
                     if game.gameData.enemy['stats']['health'] > 0:
                         game.print_dialogue("{} dodged the enemies attack".format(game.gameData.player['name']))
-                        do_damage()
+                        if game.gameData.player['class'] == 'thief':
+                            do_damage()
                 else:
                     take_damage()
             else:
