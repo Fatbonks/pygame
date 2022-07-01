@@ -81,5 +81,6 @@ class GameData:
         self.has_healed = False
 
 
+
 if __name__ == '__main__':
     exit('Please run main.py')
