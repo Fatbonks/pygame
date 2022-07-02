@@ -69,6 +69,7 @@ def do_magical_damage(ans):
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
         game.levelLogic.level_up()
+        game.levelLogic.enemy_level_up()
 
         # Restore mana to max if they are a mage and then give rewards for winning the fight.
         if game.gameData.player['class'] == 'mage':

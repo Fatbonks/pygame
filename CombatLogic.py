@@ -23,6 +23,7 @@ def do_damage():
         )
         )
         game.levelLogic.level_up()
+        game.levelLogic.enemy_level_up()
     else:
         game.print_dialogue("------------------")
         game.print_dialogue("{} takes {} damage".format(game.gameData.enemy['name'], dmg))

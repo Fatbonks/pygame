@@ -10,9 +10,9 @@ class GameData:
             'class': '',
             'race': 'Human',
             'stats': {'max_health': 20.0, 'health': 20.0, 'max_mana': 5.0, 'mana': 5.0,
-                      'damage': {'min_damage': 1, 'max_damage': 6},
+                      'damage': {'min_damage': 6, 'max_damage': 6},
                       'speed': 1.0, 'dodge': 10},
-            'level': {'level': 1, 'level_next': 25, 'exp': 0},
+            'level': {'level': 1, 'level_next': 25, 'exp': 160},
             'bag': {'gold': 50},
             'magic_slots':
                 {
@@ -60,7 +60,10 @@ class GameData:
                           }
             }
         }
-
+        # world level so every thing won't be under power once the player starts to level up
+        self.world = {
+            'world_level': 5
+        }
         # Dictionary of available spells for the player to learn
         self.magic = {
             'fire': {

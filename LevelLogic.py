@@ -37,5 +37,26 @@ def level_up():
                     game.gameData.player['stats']['damage']['max_damage']))
 
 
+def enemy_level_up():
+    l_health, l_min_damage, l_max_damage, l_gold, l_exp = 3, 2, 3, 4, 4
+    while game.gameData.player['level']['level'] >= game.gameData.world['world_level']:
+        game.gameData.world['world_level'] = round(game.gameData.world['world_level'] * 2)
+        game.gameData.enemy_stat_ranges['enemy']['stats']['low_health'] += l_health
+        game.gameData.enemy_stat_ranges['enemy']['stats']['max_health'] += l_health
+        game.gameData.enemy_stat_ranges['enemy']['stats']['number_1_min_damage'] += l_min_damage
+        game.gameData.enemy_stat_ranges['enemy']['stats']['number_1_max_damage'] += l_min_damage
+        game.gameData.enemy_stat_ranges['enemy']['stats']['number_2_min_damage'] += l_max_damage
+        game.gameData.enemy_stat_ranges['enemy']['stats']['number_2_max_damage'] += l_max_damage
+        game.gameData.enemy_stat_ranges['enemy']['stats']['min_exp'] += l_exp
+        game.gameData.enemy_stat_ranges['enemy']['stats']['max_exp'] += l_exp
+        game.gameData.enemy_stat_ranges['enemy']['stats']['min_gold'] += l_gold
+        game.gameData.enemy_stat_ranges['enemy']['stats']['max_gold'] += l_gold
+        game.print_dialogue('The enemies have gotten stronger be careful...')
+
+
+def spell_level_up():
+    pass
+
+
 if __name__ == '__main__':
     exit('Please run main.py')
