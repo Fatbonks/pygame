@@ -10,9 +10,9 @@ class GameData:
             'class': '',
             'race': 'Human',
             'stats': {'max_health': 20.0, 'health': 20.0, 'max_mana': 5.0, 'mana': 5.0,
-                      'damage': {'min_damage': 6, 'max_damage': 6},
+                      'damage': {'min_damage': 1, 'max_damage': 6},
                       'speed': 1.0, 'dodge': 10},
-            'level': {'level': 1, 'level_next': 25, 'exp': 160},
+            'level': {'level': 1, 'level_next': 25, 'exp': 0},
             'bag': {'gold': 50},
             'magic_slots':
                 {

@@ -26,7 +26,7 @@ def print_dialogue(dialogue):
     for dial in dialogue:
         sys.stdout.write(dial)
         sys.stdout.flush()
-        time.sleep(1 / 128)
+        time.sleep(1 / 160)
     sys.stdout.write('\n')
     sys.stdout.flush()
 
