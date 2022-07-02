@@ -10,6 +10,7 @@ import HealingLogic as healingLogic
 import random as ran
 import time
 import sys
+import os
 
 
 def get_input(question):
@@ -28,6 +29,10 @@ def print_dialogue(dialogue):
         time.sleep(1 / 64)
     sys.stdout.write('\n')
     sys.stdout.flush()
+
+
+def clear():
+    os.system('cls')
 
 
 if __name__ == '__main__':

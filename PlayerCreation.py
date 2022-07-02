@@ -43,6 +43,7 @@ def player_class():
         except ValueError:
             game.print_dialogue("Please input a valid number!")
 
+    game.clear()
     # Welcome text
     game.print_dialogue("------------")
     game.print_dialogue("Welcome to {RPGName}")
@@ -52,6 +53,7 @@ def player_class():
         game.print_dialogue("Stupid {}! a baby can't name itself!".format(game.gameData.player['name']))
     else:
         game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
+    game.clear()
 
 
 if __name__ == '__main__':

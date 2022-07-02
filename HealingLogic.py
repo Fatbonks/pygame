@@ -21,3 +21,5 @@ def healing_drugs():
         game.print_dialogue('you dont have enough smeckles to buy gods grace')
 
 
+if __name__ == '__main__':
+    exit('Please run main.py')

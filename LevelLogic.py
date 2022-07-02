@@ -38,4 +38,4 @@ def level_up():
 
 
 if __name__ == '__main__':
-    pass
+    exit('Please run main.py')
