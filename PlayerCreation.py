@@ -5,39 +5,46 @@ import Pipe as game
 
 # The set up for the player
 def player_class():
-    game.print_dialogue("Pick your class\n1: warrior\n2: mage\n3: archer\n4: thief")
+    game.print_dialogue("Pick your class\n1: warrior\n2: mage\n3: thief")
     while True:
         try:
             act = int(input("> ").lower().strip())
             if act == 1:
                 game.gameData.player['class'] = 'warrior'
+                game.physical_skill.skill_slot_adder(game.gameData.physical_skills['Big Swing'], 1)
+                game.physical_skill.skill_slot_adder(game.gameData.physical_skills['spin attack'], 2)
+                game.physical_skill.skill_slot_adder(game.gameData.physical_skills['Sword swipe'], 3)
                 break
             elif act == 2:
-                game.gameData.player['stats']['max_health'] = 8.0
+                game.gameData.player['stats']['max_health'] = 8
                 game.gameData.player['class'] = 'mage'
-                game.gameData.player['stats']['health'] = 8.0
-                game.gameData.player['stats']['max_mana'] = 13.0
-                game.gameData.player['stats']['mana'] = 13.0
-                game.gameData.player['stats']['speed'] = 2.0
+                game.gameData.player['stats']['health'] = 8
+                game.gameData.player['stats']['max_mana'] = 13
+                game.gameData.player['stats']['mana'] = 13
+                game.gameData.player['stats']['speed'] = 2
                 game.gameData.player['stats']['damage']['min_damage'] = 1
                 game.gameData.player['stats']['damage']['max_damage'] = 2
+                game.physical_skill.skill_slot_adder(game.gameData.physical_skills['staff bash'], 1)
                 game.magicLogic.give_magic()
                 break
             elif act == 3:
-                game.gameData.player['stats']['max_health'] = 13.0
-                game.gameData.player['class'] = 'archer'
-                game.gameData.player['stats']['health'] = 13.0
-                game.gameData.player['stats']['speed'] = 4.0
-                game.gameData.player['stats']['dodge'] = 45
-                break
-            elif act == 4:
-                game.gameData.player['stats']['max_health'] = 10.0
+                game.gameData.player['stats']['max_health'] = 10
                 game.gameData.player['class'] = 'thief'
-                game.gameData.player['stats']['health'] = 10.0
-                game.gameData.player['stats']['speed'] = 3.0
+                game.gameData.player['stats']['health'] = 10
+                game.gameData.player['stats']['speed'] = 3
                 game.gameData.player['stats']['dodge'] = 75
                 game.gameData.player['stats']['damage']['min_damage'] = 1
-                game.gameData.player['stats']['damage']['max_damage'] = 1
+                game.gameData.player['stats']['damage']['max_damage'] = 3
+                game.physical_skill.skill_slot_adder(game.gameData.physical_skills['Big Swing'], 1)
+                game.physical_skill.skill_slot_adder(game.gameData.physical_skills['Stab'], 2)
+
+                break
+            elif act == 2134:
+                game.gameData.player['stats']['max_health'] = 13
+                game.gameData.player['class'] = 'archer'
+                game.gameData.player['stats']['health'] = 13
+                game.gameData.player['stats']['speed'] = 4
+                game.gameData.player['stats']['dodge'] = 45
                 break
             game.print_dialogue("Please input a valid number!")
         except ValueError:

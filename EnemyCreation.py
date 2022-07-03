@@ -36,7 +36,10 @@ def random_enemy():
             game.gameData.enemy_stat_ranges['enemy']['stats']['min_gold'],
             game.gameData.enemy_stat_ranges['enemy']['stats']['max_gold']
         )
-    game.gameData.blank_enemy['enemy']['name'] = game.ran.choice(game.gameData.enemy_names)
+    var1 = list(game.gameData.enemy_names)
+    var2 = game.ran.choice(var1)
+    game.gameData.blank_enemy['enemy']['name'] = game.gameData.enemy_names['{}'.format(var2)]['name']
+    game.gameData.blank_enemy['enemy']['title'] = game.gameData.enemy_names['{}'.format(var2)]['title']
     game.gameData.enemy = game.gameData.blank_enemy['enemy']
 
 

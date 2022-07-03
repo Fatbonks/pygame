@@ -7,6 +7,7 @@ import LevelLogic as levelLogic
 import MagicLogic as magicLogic
 import CombatLogic as combatLogic
 import HealingLogic as healingLogic
+import physical_skills as physical_skill
 import random as ran
 import time
 import sys
@@ -29,6 +30,10 @@ def print_dialogue(dialogue):
         time.sleep(1 / 160)
     sys.stdout.write('\n')
     sys.stdout.flush()
+
+
+def draw_line():
+    print('##----------------------------------------##')
 
 
 def clear():

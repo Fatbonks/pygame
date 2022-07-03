@@ -80,7 +80,7 @@ if __name__ == '__main__':
                             "Proficiency level up: {}".format(game.gameData.player['magic_slots']['slot_{}'
                                                               .format(spell_slot)]['proficiency_level_up']))
             elif answer == 'exit':
-                exit(0)
+                game.combatLogic.combat_display()
         else:
             game.print_dialogue('please use a word to select your choices')
 
