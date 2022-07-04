@@ -56,6 +56,16 @@ def in_combat():
     game.enemyCreation.random_enemy()
     while game.gameData.player['stats']['health'] > 0 and game.gameData.enemy['stats']['health'] > 0:
         game.print_dialogue("------------------")
+        game.print_dialogue(
+            "You have encountered {}, I hope you can win!\n{} has {} hp\n{} has {} min_damage\n{} has {} max_damage\n"
+            "{} has {} speed".format(
+                game.gameData.enemy['name'], game.gameData.enemy['name'], game.gameData.enemy['stats']['health'],
+                game.gameData.enemy['name'], game.gameData.enemy['stats']['damage']['min_damage'],
+                game.gameData.enemy['name'], game.gameData.enemy['stats']['damage']['max_damage'],
+                game.gameData.enemy['name'], game.gameData.enemy['stats']['speed']
+            )
+        )
+        game.print_dialogue("------------------")
         game.print_dialogue("1: Attack\n2: Magic attack\n3: Run\n4: call god to give you drugs")
         try:
             ans = int(input('> ').lower().strip())
