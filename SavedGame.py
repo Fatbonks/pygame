@@ -1,6 +1,8 @@
 import Pipe as game
 import pickle
 
+import main
+
 
 def save_game():
     with open('saved_game.pkl', 'wb') as saved_game:
