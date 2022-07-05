@@ -61,13 +61,16 @@ def do_magical_damage(ans):
     if game.gameData.player['stats']['health'] <= 0:
         game.gameData.enemy['stats']['health'] += dmg
     elif game.gameData.enemy['stats']['health'] <= 0:
-        game.print_dialogue('------------------')
-        game.print_dialogue('{} has been slain by {}'.format(game.gameData.enemy['name'], game.gameData.player['name']))
-        game.print_dialogue(
-            '{} has {} health left'.format(game.gameData.player['name'], game.gameData.player['stats']['health']))
+        game.draw_line()
+        print('{} has been slain by {}'.format(game.gameData.enemy['name'], game.gameData.player['name']))
         game.gameData.has_healed = False
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
+        game.levelLogic.spell_level_up()
+        game.gameData.player['magic_slots']['slot_1']['spell_used'] = False
+        game.gameData.player['magic_slots']['slot_2']['spell_used'] = False
+        game.gameData.player['magic_slots']['slot_3']['spell_used'] = False
+        game.gameData.player['magic_slots']['slot_4']['spell_used'] = False
         game.levelLogic.level_up()
         game.levelLogic.enemy_level_up()
 
@@ -76,17 +79,15 @@ def do_magical_damage(ans):
             game.gameData.player['stats']['mana'] = game.gameData.player['stats']['max_mana']
         game.gameData.player['bag']['gold'] += game.gameData.enemy['drops']['gold']
         game.gameData.player['level']['exp'] += game.gameData.enemy['level']['exp']
-        game.print_dialogue('you gained {} smeckles! and {} EXP'.format(
+        game.draw_line()
+        print('you gained {} smeckles! and {} EXP'.format(
             game.gameData.enemy['drops']['gold'], game.gameData.enemy['level']['exp']
         )
         )
     else:
-        game.print_dialogue('------------------')
-        game.print_dialogue('{} takes {} damage'.format(game.gameData.enemy['name'], dmg))
-        game.print_dialogue('{} health is {}\n {} health is {}'.format(game.gameData.player['name'],
-                                                                       game.gameData.player['stats']['health'],
-                                                                       game.gameData.enemy['name'],
-                                                                       game.gameData.enemy['stats']['health']))
+        print('you use {} on {} and deal {}'.format(game.gameData.player['magic_slots']['slot_{}'.format(ans)]['name'],
+                                                    game.gameData.enemy['name'], dmg
+                                                    ))
 
 
 if __name__ == '__main__':

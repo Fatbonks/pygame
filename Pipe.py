@@ -1,14 +1,15 @@
-import select
+# import select
 
 from GameData import GameData
-import EnemyCreation as enemyCreation
-import PlayerCreation as playerCreation
-import LevelLogic as levelLogic
-import MagicLogic as magicLogic
-import CombatLogic as combatLogic
-import HealingLogic as healingLogic
-import physical_skills as physical_skill
-import random as ran
+import json
+import EnemyCreation
+import PlayerCreation
+import LevelLogic
+import MagicLogic
+import CombatLogic
+import HealingLogic
+import physical_skills
+import random
 import time
 import sys
 import os
@@ -44,3 +45,13 @@ if __name__ == '__main__':
     exit('Please run main.py')
 else:
     gameData = GameData()
+    enemyCreation = EnemyCreation
+    playerCreation = PlayerCreation
+    levelLogic = LevelLogic
+    magicLogic = MagicLogic
+    combatLogic = CombatLogic
+    healingLogic = HealingLogic
+    physical_skill = physical_skills
+    ran = random
+
+

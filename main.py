@@ -3,7 +3,7 @@ import Pipe as game
 
 def event_picker():
     if game.ran.random() < 1:
-        game.combatLogic.in_combat()
+        game.combatLogic.combat_display()
 
 
 def legal_disclaimer():
@@ -27,19 +27,22 @@ if __name__ == '__main__':
     game.playerCreation.player_class()
     # Main game loop
     while True:
-        option = ['up', 'left', 'right', 'stats', 'exit']
-        game.print_dialogue('----------------------------')
-        game.print_dialogue("Up: Move up\nStats: Shows your stats\nExit: To leave the game")
-        answer = input("> ").lower().strip()
-        if answer in option:
+        game.draw_line()
+        print("1 - Move up\n2 - Shows your stats\n3 - To leave the game")
+        try:
+            answer = int(input("> ").lower().strip())
             # up is debug command to trigger combat
             # if player enters up go into combat
             # if player enters stats print out the stats
             # if player enters exit, exit the game
-            if answer == 'up':
+            if answer <= 0:
+                print('please use numbers between 1 - 3')
+            if answer >= 4:
+                print('please use numbers between 1 - 3')
+            if answer == 1:
                 # 100% chance to get into a fight
                 event_picker()
-            elif answer == 'stats':
+            elif answer == 2:
                 game.print_dialogue("----------------------------")
                 game.print_dialogue("Level: {}".format(game.gameData.player['level']['level']))
                 game.print_dialogue("Max health: {}".format(game.gameData.player['stats']['max_health']))
@@ -79,10 +82,10 @@ if __name__ == '__main__':
                         game.print_dialogue(
                             "Proficiency level up: {}".format(game.gameData.player['magic_slots']['slot_{}'
                                                               .format(spell_slot)]['proficiency_level_up']))
-            elif answer == 'exit':
-                game.combatLogic.combat_display()
-        else:
-            game.print_dialogue('please use a word to select your choices')
+            elif answer == 3:
+                exit(0)
+        except ValueError:
+            print('please use a number')
 
 if __name__ == '__main__':
     exit('Please run main.py')

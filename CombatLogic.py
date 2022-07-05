@@ -1,36 +1,41 @@
 import Pipe as game
 
 
-def do_damage():
+def do_damage(bonus_damage, slot):
     dmg = game.ran.randint(int(game.gameData.player['stats']['damage']['min_damage']),
                            int(game.gameData.player['stats']['damage']['max_damage']))
+    dmg += bonus_damage
     game.gameData.enemy['stats']['health'] -= dmg
 
     if game.gameData.player['stats']['health'] <= 0:
         game.gameData.enemy['stats']['health'] += dmg
     elif game.gameData.enemy['stats']['health'] <= 0:
-        game.print_dialogue("------------------")
-        game.print_dialogue("{} has been slain by {}".format(game.gameData.enemy['name'], game.gameData.player['name']))
-        game.print_dialogue(
-            "{} has {:.1f} health left".format(game.gameData.player['name'], game.gameData.player['stats']['health']))
+        game.draw_line()
+        print("{} has been slain by {}".format(game.gameData.enemy['name'], game.gameData.player['name']))
         game.gameData.has_healed = False
         if game.gameData.player['stats']['health'] > game.gameData.player['stats']['max_health']:
             game.gameData.player['stats']['health'] = game.gameData.player['stats']['max_health']
+        game.gameData.player['stats']['stamina'] = game.gameData.player['stats']['max_stamina']
         game.gameData.player['bag']['gold'] += game.gameData.enemy['drops']['gold']
         game.gameData.player['level']['exp'] += game.gameData.enemy['level']['exp']
-        game.print_dialogue('you gained {} smeckles! and {} EXP'.format(
+        game.draw_line()
+        print('you gained {} smeckles! and {} EXP'.format(
             game.gameData.enemy['drops']['gold'], game.gameData.enemy['level']['exp']
         )
         )
+        game.levelLogic.physical_skill_level_up()
+        game.gameData.player_skills['physical_skills']['slot_1']['skill_used'] = False
+        game.gameData.player_skills['physical_skills']['slot_2']['skill_used'] = False
+        game.gameData.player_skills['physical_skills']['slot_3']['skill_used'] = False
+        game.gameData.player_skills['physical_skills']['slot_4']['skill_used'] = False
         game.levelLogic.level_up()
         game.levelLogic.enemy_level_up()
     else:
-        game.print_dialogue("------------------")
-        game.print_dialogue("{} takes {} damage".format(game.gameData.enemy['name'], dmg))
-        game.print_dialogue("{} health is {}\n {} health is {}".format(game.gameData.player['name'],
-                                                                       game.gameData.player['stats']['health'],
-                                                                       game.gameData.enemy['name'],
-                                                                       game.gameData.enemy['stats']['health']))
+        print('you uses {} on {} and deal {}'.format(
+                                        game.gameData.player_skills['physical_skills']['slot_{}'.format(slot)]['name'],
+                                        game.gameData.enemy['name'], dmg
+                                        ))
+        game.draw_line()
 
 
 def take_damage():
@@ -40,100 +45,47 @@ def take_damage():
     if game.gameData.enemy['stats']['health'] <= 0:
         game.gameData.player['stats']['health'] += dmg
     elif game.gameData.player['stats']['health'] <= 0:
-        game.print_dialogue("{} has been slain by {}".format(game.gameData.player['name'], game.gameData.enemy['name']))
+        print("{} has been slain by {}".format(game.gameData.player['name'], game.gameData.enemy['name']))
+        game.draw_line()
         input('press enter to leave')
         exit(0)
     else:
-        game.print_dialogue("------------------")
-        game.print_dialogue("{} takes {} damage".format(game.gameData.player['name'], dmg))
-        game.print_dialogue("{} health is {}\nThe {} health is {}".format(game.gameData.player['name'],
-                                                                          game.gameData.player['stats']['health'],
-                                                                          game.gameData.enemy['name'],
-                                                                          game.gameData.enemy['stats']['health']))
+        print('{} attacks and deals {} damage to you'.format(game.gameData.enemy['name'], dmg))
+        game.draw_line()
 
 
-def in_combat():
-    game.enemyCreation.random_enemy()
-    while game.gameData.player['stats']['health'] > 0 and game.gameData.enemy['stats']['health'] > 0:
-        game.print_dialogue("------------------")
-        game.print_dialogue(
-            "You have encountered {}, I hope you can win!\n{} has {} hp\n{} has {} min_damage\n{} has {} max_damage\n"
-            "{} has {} speed".format(
-                game.gameData.enemy['name'], game.gameData.enemy['name'], game.gameData.enemy['stats']['health'],
-                game.gameData.enemy['name'], game.gameData.enemy['stats']['damage']['min_damage'],
-                game.gameData.enemy['name'], game.gameData.enemy['stats']['damage']['max_damage'],
-                game.gameData.enemy['name'], game.gameData.enemy['stats']['speed']
-            )
-        )
-        game.print_dialogue("------------------")
-        game.print_dialogue("1: Attack\n2: Magic attack\n3: Run\n4: call god to give you drugs")
-        try:
-            ans = int(input('> ').lower().strip())
-            if ans == 1:
-                if game.gameData.player['stats']['speed'] >= game.gameData.enemy['stats']['speed']:
-                    do_damage()
-                    if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
-                        if game.gameData.enemy['stats']['health'] > 0:
-                            game.print_dialogue("{} dodged the enemies attack".format(game.gameData.player['name']))
-                            if game.gameData.player['class'] == 'thief':
-                                do_damage()
-                    else:
-                        take_damage()
+def combat_attacking(bonus_damage, acc, slot):
+    if game.gameData.player['stats']['speed'] >= game.gameData.enemy['stats']['speed']:
+        if acc > game.ran.random():
+            do_damage(bonus_damage, slot)
+            if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
+                if game.gameData.enemy['stats']['health'] > 0:
+                    game.print_dialogue("{} dodged the enemies attack".format(game.gameData.player['name']))
+                    if game.gameData.player['class'] == 'thief':
+                        do_damage(bonus_damage, slot)
+            else:
+                take_damage()
+        else:
+            print('you missed you attack')
+            take_damage()
+    else:
+        if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
+            if game.gameData.enemy['stats']['health'] > 0:
+                game.print_dialogue("{} dodged the enemies attack".format(game.gameData.player['name']))
+                if acc > game.ran.random():
+                    do_damage(bonus_damage, slot)
                 else:
-                    if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
-                        if game.gameData.enemy['stats']['health'] > 0:
-                            game.print_dialogue("{} dodged the enemies attack".format(game.gameData.player['name']))
-                            do_damage()
-                    else:
-                        take_damage()
-                        do_damage()
-                game.levelLogic.level_up()
-            elif ans == 2:
-                game.print_dialogue('your mana is {}'.format(game.gameData.player['stats']['mana']))
-                game.print_dialogue('1: {}\n2: {}\n3: {}\n4: {}\n'.format(
-                    game.gameData.player['magic_slots']['slot_1']['name'],
-                    game.gameData.player['magic_slots']['slot_2']['name'],
-                    game.gameData.player['magic_slots']['slot_3']['name'],
-                    game.gameData.player['magic_slots']['slot_4']['name']
-                )
-                )
-                ans_magic_slot = int(input('> ').lower().strip())
-                if len(game.gameData.player['magic_slots']) >= ans >= 1:
-                    if game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['name'] != '':
-                        if game.gameData.player['stats']['mana'] >= \
-                                game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['mana_cost']:
-                            game.magicLogic.magic_attacking(ans_magic_slot)
-                            game.gameData.player['stats']['mana'] -= \
-                                game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['mana_cost']
-                        else:
-                            game.print_dialogue(
-                                'you dont have enough mana you have {} mana left'.format(
-                                    game.gameData.player['stats']['mana']
-                                )
-                            )
-                    else:
-                        game.print_dialogue(
-                            'That slot does not have an ability please use one that does have a ability')
-                else:
-                    game.print_dialogue('That slot is invalid please choose again')
-
-            elif ans == 3:
-                if game.ran.random() < 0.5:
-                    game.print_dialogue('you ran away!')
-                    break
-                else:
-                    game.print_dialogue(
-                        'the {} did not let you escape and he attacked you'.format(game.gameData.enemy['name']))
-                    take_damage()
-            elif ans == 4:
-                game.healingLogic.healing_drugs()
-        except ValueError:
-            game.print_dialogue("That is not a valid number.")
+                    print('but you missed your attack')
+        else:
+            take_damage()
+            if acc > game.ran.random():
+                do_damage(bonus_damage, slot)
+            else:
+                print('you missed your attack')
 
 
-def display_stats():
+def display_stats(enemy_health):
     game.clear()
-    enemy_health = game.gameData.enemy['stats']['health']
     game.draw_line()
     print('Defeat {} {}!'.format(game.gameData.enemy['name'], game.gameData.enemy['title']))
     game.draw_line()
@@ -171,39 +123,105 @@ def display_stats():
     )
     print("{}'s SMECKLES: {}".format(game.gameData.player['name'], game.gameData.player['bag']['gold']))
     game.draw_line()
+
+
+def display_option():
     game.time.sleep(2)
-    print('1 - ATK\n2 - Spell\n3 - Run\n4 - Call god to get drugs')
+    print('1 - physical ATK\n2 - Use spells\n3 - Run\n4 - Call god to get drugs')
     game.draw_line()
 
 
 def combat_display():
     game.enemyCreation.random_enemy()
-    display_stats()
+    enemy_health = game.gameData.enemy['stats']['health']
     while game.gameData.player['stats']['health'] > 0 and game.gameData.enemy['stats']['health'] > 0:
         try:
+            display_stats(enemy_health)
+            display_option()
             ans = int(input('> ').lower().strip())
             if ans == 1:
-                print('your SP is {}'.format(game.gameData.player['stats']['stamina']))
-                print('1: {}\n2: {}\n3: {}\n4: {}\n'.format(
+                game.draw_line()
+                print('1: {}\n2: {}\n3: {}\n4: {}'.format(
                     game.gameData.player_skills['physical_skills']['slot_1']['name'],
                     game.gameData.player_skills['physical_skills']['slot_2']['name'],
                     game.gameData.player_skills['physical_skills']['slot_3']['name'],
                     game.gameData.player_skills['physical_skills']['slot_4']['name']))
+                print('5: back')
+                ans_skill_slot = int(input('> ').lower().strip())
+                if ans_skill_slot <= 0:
+                    print('Please pick a number between 1 - 5')
+                    input('press enter to leave')
+                elif ans_skill_slot >= 6:
+                    print('Please pick a number between 1 - 5')
+                    input('press enter to leave')
+                elif ans_skill_slot == 5:
+                    pass
+                elif len(game.gameData.player_skills['physical_skills']) >= ans >= 1:
+                    if game.gameData.player_skills['physical_skills']['slot_{}'.format(ans_skill_slot)]['name'] != '':
+                        if game.gameData.player['stats']['stamina'] >= \
+                                game.gameData.player_skills['physical_skills']['slot_{}'.format(ans_skill_slot)][
+                                    'stamina_cost']:
+                            display_stats(enemy_health)
+                            game.combatLogic.combat_attacking(game.gameData.player_skills
+                                                              ['physical_skills']['slot_{}'.format(ans_skill_slot)]
+                                                              ['damage']['bonus_damage'], game.gameData.player_skills
+                                                              ['physical_skills']['slot_{}'.format(ans_skill_slot)]
+                                                              ['accuracy'], ans_skill_slot
+                                                              )
+                            input('press enter to leave')
+                            if game.gameData.enemy['stats']['health'] <= 0:
+                                game.clear()
+                                break
+                            game.gameData.player['stats']['stamina'] -= \
+                                game.gameData.player_skills['physical_skills']['slot_{}'.format(ans_skill_slot)][
+                                    'stamina_cost']
+                        else:
+                            print(
+                                'you dont have enough mana you have {} SP left'.format(
+                                    game.gameData.player['stats']['stamina']
+                                )
+                            )
+                            input('press enter')
+                            display_stats(enemy_health)
+                            display_option()
+                    else:
+                        print(
+                            'That slot does not have an ability please use one that does have a ability')
+                        input('press enter to leave')
+                        display_stats(enemy_health)
+                        display_option()
+                else:
+                    game.print_dialogue('That slot is invalid please choose again')
+                    input('press enter to leave')
             elif ans == 2:
-                print('your mana is {}'.format(game.gameData.player['stats']['mana']))
-                print('1: {}\n2: {}\n3: {}\n4: {}\n'.format(
+                game.draw_line()
+                print('1: {}\n2: {}\n3: {}\n4: {}'.format(
                     game.gameData.player['magic_slots']['slot_1']['name'],
                     game.gameData.player['magic_slots']['slot_2']['name'],
                     game.gameData.player['magic_slots']['slot_3']['name'],
                     game.gameData.player['magic_slots']['slot_4']['name']
                 )
                 )
+                print('5: back')
                 ans_magic_slot = int(input('> ').lower().strip())
-                if len(game.gameData.player['magic_slots']) >= ans >= 1:
+                if ans_magic_slot <= 0:
+                    print('Please pick a number between 1 - 5')
+                    input('press enter to leave')
+                elif ans_magic_slot >= 6:
+                    print('Please pick a number between 1 - 5')
+                    input('press enter to leave')
+                elif ans_magic_slot == 5:
+                    pass
+                elif len(game.gameData.player['magic_slots']) >= ans >= 1:
                     if game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['name'] != '':
                         if game.gameData.player['stats']['mana'] >= \
                                 game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['mana_cost']:
+                            display_stats(enemy_health)
                             game.magicLogic.magic_attacking(ans_magic_slot)
+                            input('press enter to leave')
+                            if game.gameData.enemy['stats']['health'] <= 0:
+                                game.clear()
+                                break
                             game.gameData.player['stats']['mana'] -= \
                                 game.gameData.player['magic_slots']['slot_{}'.format(ans_magic_slot)]['mana_cost']
                         else:
@@ -213,15 +231,16 @@ def combat_display():
                                 )
                             )
                             input('press enter')
-                            display_stats()
+                            display_stats(enemy_health)
+                            display_option()
                     else:
                         print(
                             'That slot does not have an ability please use one that does have a ability')
-                        display_stats()
+                        display_stats(enemy_health)
+                        display_option()
                 else:
                     game.print_dialogue('That slot is invalid please choose again')
-                    display_stats()
-
+                    input('press enter to leave')
             elif ans == 3:
                 if game.ran.random() < 0.5:
                     game.print_dialogue('you ran away!')
@@ -231,12 +250,10 @@ def combat_display():
                     game.print_dialogue(
                         'the {} did not let you escape and he attacked you'.format(game.gameData.enemy['name']))
                     take_damage()
-                    input('press enter')
-                    display_stats()
+                    input('press enter to leave')
             elif ans == 4:
                 game.healingLogic.healing_drugs()
-                input('press enter')
-                display_stats()
+                input('press enter to leave')
 
         except ValueError:
             print('please use a number')

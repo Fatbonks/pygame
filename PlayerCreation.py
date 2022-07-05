@@ -1,5 +1,3 @@
-import time
-
 import Pipe as game
 
 
@@ -51,12 +49,12 @@ def player_class():
             game.print_dialogue("Please input a valid number!")
 
     # Welcome text
-    game.print_dialogue("------------")
+    game.draw_line()
     game.print_dialogue("Welcome to {RPGName}")
     game.gameData.player['name'] = game.ran.choice(game.gameData.names)
     if input("What would you like to name yourself?\n> ") != "":
-        game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
         game.print_dialogue("Stupid {}! a baby can't name itself!".format(game.gameData.player['name']))
+        game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
     else:
         game.print_dialogue("Your name is now {}".format(game.gameData.player['name']))
 

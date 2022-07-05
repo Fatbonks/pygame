@@ -1,3 +1,5 @@
+import json
+
 import Pipe as game
 
 
@@ -16,17 +18,17 @@ class GameData:
             'bag': {'gold': 50},
             'magic_slots':
                 {
-                    'slot_1': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_1': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                },
-                    'slot_2': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_2': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                },
-                    'slot_3': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_3': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                },
-                    'slot_4': {'name': '', 'mana_cost': 0.0, 'damage': {'min_damage': 0.0, 'max_damage': 0.0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_4': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                }
 
                 }
@@ -35,35 +37,35 @@ class GameData:
         self.player_skills = {
             'physical_skills':
                 {
-                    'slot_1': {'name': '', 'stamina_cost': 0.0, 'damage': {'bonus_damage': 0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_1': {'name': '', 'stamina_cost': 0, 'damage': {'bonus_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 0
                                },
-                    'slot_2': {'name': '', 'stamina_cost': 0.0, 'damage': {'bonus_damage': 0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_2': {'name': '', 'stamina_cost': 0, 'damage': {'bonus_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 0
                                },
-                    'slot_3': {'name': '', 'stamina_cost': 0.0, 'damage': {'bonus_damage': 0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_3': {'name': '', 'stamina_cost': 0, 'damage': {'bonus_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 0
                                },
-                    'slot_4': {'name': '', 'stamina_cost': 0.0, 'damage': {'bonus_damage': 0},
-                               'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'slot_4': {'name': '', 'stamina_cost': 0, 'damage': {'bonus_damage': 0},
+                               'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 0
                                }
                 }}
 
         self.physical_skills = {
             'Big Swing': {'name': 'Big Swing', 'stamina_cost': 0, 'damage': {'bonus_damage': 0},
-                          'proficiency': 0, 'proficiency_level_up': 25
+                          'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 1
                           },
             'staff bash': {'name': 'Big Swing', 'stamina_cost': 0, 'damage': {'bonus_damage': 0},
-                           'proficiency': 0, 'proficiency_level_up': 25
+                           'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 1
                            },
             'spin attack': {'name': 'Spin attack', 'stamina_cost': 30, 'damage': {'bonus_damage': 4},
-                            'proficiency': 0, 'proficiency_level_up': 25
+                            'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 0.7
                             },
             'Sword swipe': {'name': 'Sword swipe', 'stamina_cost': 5, 'damage': {'bonus_damage': 1},
-                            'proficiency': 0, 'proficiency_level_up': 25
+                            'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 0.8
                             },
             'Stab': {'name': 'Stab', 'stamina_cost': 10, 'damage': {'bonus_damage': 2},
-                     'proficiency': 0, 'proficiency_level_up': 25
+                     'proficiency': 0, 'proficiency_level_up': 25, 'skill_used': False, 'accuracy': 0.7
                      },
         }
 
@@ -111,27 +113,27 @@ class GameData:
         self.magic = {
             'fire': {
                 'fireball':
-                    {'name': 'fireball', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
-                     'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    {'name': 'fireball', 'mana_cost': 3, 'damage': {'min_damage': 0, 'max_damage': 20},
+                     'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
 
                      }
             },
             'water': {
                 'water_whip': {
-                    'name': 'water whip', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
-                    'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'name': 'water whip', 'mana_cost': 3, 'damage': {'min_damage': 0, 'max_damage': 20},
+                    'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                 }
             },
             'air': {
                 'air_blades': {
-                    'name': 'air blades', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
-                    'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'name': 'air blades', 'mana_cost': 3, 'damage': {'min_damage': 0, 'max_damage': 20},
+                    'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                 }
             },
             'earth': {
                 'earthquake': {
-                    'name': 'earthquake', 'mana_cost': 3, 'damage': {'min_damage': 0.0, 'max_damage': 20.0},
-                    'proficiency': 0.0, 'proficiency_level_up': 25.0
+                    'name': 'earthquake', 'mana_cost': 3, 'damage': {'min_damage': 0, 'max_damage': 20},
+                    'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                 }
             }
         }
@@ -145,3 +147,4 @@ class GameData:
 
 if __name__ == '__main__':
     exit('Please run main.py')
+
