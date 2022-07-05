@@ -9,6 +9,7 @@ import MagicLogic
 import CombatLogic
 import HealingLogic
 import physical_skills
+import SavedGame
 import random
 import time
 import sys
@@ -28,7 +29,7 @@ def print_dialogue(dialogue):
     for dial in dialogue:
         sys.stdout.write(dial)
         sys.stdout.flush()
-        time.sleep(1 / 160)
+        time.sleep(1 / 64)
     sys.stdout.write('\n')
     sys.stdout.flush()
 
@@ -52,6 +53,7 @@ else:
     combatLogic = CombatLogic
     healingLogic = HealingLogic
     physical_skill = physical_skills
+    SavedGame = SavedGame
     ran = random
 
 

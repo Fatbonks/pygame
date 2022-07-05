@@ -143,6 +143,7 @@ class GameData:
         self.names = ['Bill', 'John', 'Dave', 'Cow', 'Tiffany', 'Tod', 'Elliot', 'Mexican jesus', 'cody']
 
         self.has_healed = False
+        self.has_loaded = False
 
 
 if __name__ == '__main__':

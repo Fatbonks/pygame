@@ -22,23 +22,34 @@ def legal_disclaimer():
 
 
 if __name__ == '__main__':
+    while True:
+        print('1 - load save file\n2 - new game')
+        ans = int(input('> '))
     # legal_disclaimer()
     # Runs at the start of the game
-    game.playerCreation.player_class()
+        if ans == 1:
+            game.SavedGame.load_game()
+            if game.gameData.has_loaded is True:
+                game.gameData.has_loaded = False
+                break
+        if ans == 2:
+            game.playerCreation.player_class()
+            break
+
     # Main game loop
     while True:
         game.draw_line()
-        print("1 - Move up\n2 - Shows your stats\n3 - To leave the game")
+        print("1 - Move up\n2 - Shows your stats\n3 - To leave the game\n4 - save")
         try:
-            answer = int(input("> ").lower().strip())
+            answer = int(input("> "))
             # up is debug command to trigger combat
             # if player enters up go into combat
             # if player enters stats print out the stats
             # if player enters exit, exit the game
             if answer <= 0:
-                print('please use numbers between 1 - 3')
-            if answer >= 4:
-                print('please use numbers between 1 - 3')
+                print('please use numbers between 1 - 4')
+            if answer >= 5:
+                print('please use numbers between 1 - 4')
             if answer == 1:
                 # 100% chance to get into a fight
                 event_picker()
@@ -84,6 +95,12 @@ if __name__ == '__main__':
                                                               .format(spell_slot)]['proficiency_level_up']))
             elif answer == 3:
                 exit(0)
+            elif answer == 4:
+                game.SavedGame.save_game()
+                game.draw_line()
+                print('the game is saving')
+                game.print_dialogue('......')
+                print('the game has saved')
         except ValueError:
             print('please use a number')
 
