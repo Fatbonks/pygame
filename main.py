@@ -6,6 +6,52 @@ def event_picker():
         game.combatLogic.combat_display()
 
 
+def display_stats():
+    game.draw_line()
+    print('{}:')
+    print('-------')
+    print('Class: {} | Race: {}')
+    print('Level: {} | Level_next: {} | EXP: {}')
+    print('MX_HP: {} | Health: {}')
+    print('MX_MP: {} | Mana: {}')
+    print('-------')
+    print('SPD: {}')
+    print('DMG: {} - {}')
+    print('Dodge: {}')
+    print('Smeckles: {}')
+    game.draw_line()
+
+
+def display_skills():
+    pass
+
+
+def display_spell():
+    game.clear()
+    for spell_slot in range(1, len(game.gameData.player['magic_slots']) + 1):
+        if game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['name'] != '':
+            game.draw_line()
+            print('Spell in slot {}'.format(spell_slot))
+            print('-------')
+            print('{}:'.format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['name']))
+            print(
+                'mana cost: {}'.format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['mana_cost']))
+            print('DMG: {} - {}'.format(
+                game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['damage']['min_damage'],
+                game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['damage']['max_damage']
+            )
+            )
+            print('Proficiency: {} | Proficiency level up: {}'.format(
+                game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['proficiency'],
+                game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['proficiency_level_up']
+            )
+            )
+            game.time.sleep(1.3)
+            if spell_slot == 4:
+                input('press enter to leave')
+                game.clear()
+
+
 def legal_disclaimer():
     game.print_dialogue("By playing this game you agree to the following terms:")
     game.print_dialogue("1: You agree that you are of legal age to agree to the terms stated.")
@@ -25,8 +71,8 @@ if __name__ == '__main__':
     while True:
         print('1 - load save file\n2 - new game')
         ans = int(input('> '))
-    # legal_disclaimer()
-    # Runs at the start of the game
+        # legal_disclaimer()
+        # Runs at the start of the game
         if ans == 1:
             game.SavedGame.load_game()
             if game.gameData.has_loaded is True:
@@ -54,45 +100,7 @@ if __name__ == '__main__':
                 # 100% chance to get into a fight
                 event_picker()
             elif answer == 2:
-                game.print_dialogue("----------------------------")
-                game.print_dialogue("Level: {}".format(game.gameData.player['level']['level']))
-                game.print_dialogue("Max health: {}".format(game.gameData.player['stats']['max_health']))
-                game.print_dialogue("Health: {}".format(game.gameData.player['stats']['health']))
-                game.print_dialogue("Max mana: {}".format(game.gameData.player['stats']['max_mana']))
-                game.print_dialogue("Mana: {}".format(game.gameData.player['stats']['mana']))
-                game.print_dialogue("{} - {} damage"
-                                    .format(game.gameData.player['stats']['damage']['min_damage'],
-                                            game.gameData.player['stats']['damage']['max_damage']))
-                game.print_dialogue("EXP: {}".format(game.gameData.player['level']['exp']))
-                game.print_dialogue("Speed: {}".format(game.gameData.player['stats']['speed']))
-                game.print_dialogue("Dodge: {}".format(game.gameData.player['stats']['dodge']))
-                game.print_dialogue("Level next: {}".format(game.gameData.player['level']['level_next']))
-                game.print_dialogue("smeckles: {}".format(game.gameData.player['bag']['gold']))
-                # Test this when enemies are working again
-                # We add 1 because we wanted slots to start at 1 not 0.
-                for spell_slot in range(1, len(game.gameData.player['magic_slots']) + 1):
-                    if game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['name'] != '':
-                        game.print_dialogue("Spell in slot {}".format(spell_slot))
-                        game.print_dialogue(
-                            "name: {}".format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]
-                                              ['name']))
-                        game.print_dialogue(
-                            "mana cost: {}".format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]
-                                                   ['mana_cost']))
-                        game.print_dialogue("Min damage: {}\nMax damage: {}".format(game.gameData.player['magic_slots']
-                                                                                    ['slot_{}'.format(spell_slot)][
-                                                                                        'damage']
-                                                                                    ['min_damage'],
-                                                                                    game.gameData.player['magic_slots']
-                                                                                    ['slot_{}'.format(spell_slot)][
-                                                                                        'damage']
-                                                                                    ['max_damage']))
-                        game.print_dialogue(
-                            "Proficiency: {}".format(game.gameData.player['magic_slots'] \
-                                                         ['slot_{}'.format(spell_slot)]['proficiency']))
-                        game.print_dialogue(
-                            "Proficiency level up: {}".format(game.gameData.player['magic_slots']['slot_{}'
-                                                              .format(spell_slot)]['proficiency_level_up']))
+                display_spell()
             elif answer == 3:
                 exit(0)
             elif answer == 4:
@@ -103,8 +111,3 @@ if __name__ == '__main__':
                 print('the game has saved')
         except ValueError:
             print('please use a number')
-
-if __name__ == '__main__':
-    exit('Please run main.py')
-
-

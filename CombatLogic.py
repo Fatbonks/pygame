@@ -126,7 +126,7 @@ def display_stats(enemy_health):
 
 
 def display_option():
-    game.time.sleep(2)
+    game.time.sleep(1.5)
     print('1 - physical ATK\n2 - Use spells\n3 - Run\n4 - Call god to get drugs')
     game.draw_line()
 
@@ -141,11 +141,46 @@ def combat_display():
             ans = int(input('> ').lower().strip())
             if ans == 1:
                 game.draw_line()
-                print('1: {}\n2: {}\n3: {}\n4: {}'.format(
-                    game.gameData.player_skills['physical_skills']['slot_1']['name'],
-                    game.gameData.player_skills['physical_skills']['slot_2']['name'],
-                    game.gameData.player_skills['physical_skills']['slot_3']['name'],
-                    game.gameData.player_skills['physical_skills']['slot_4']['name']))
+                if game.gameData.player_skills['physical_skills']['slot_1']['name'] != '':
+                    print('1 - {} (ACC: {:.0f} | Bonus DMG {} | SP cost: {})'.format(
+                        game.gameData.player_skills['physical_skills']['slot_1']['name'],
+                        game.gameData.player_skills['physical_skills']['slot_1']['accuracy'] * 100,
+                        game.gameData.player_skills['physical_skills']['slot_1']['damage']['bonus_damage'],
+                        game.gameData.player_skills['physical_skills']['slot_1']['stamina_cost']
+                                                                  )
+                          )
+                else:
+                    print('1 -')
+                if game.gameData.player_skills['physical_skills']['slot_2']['name'] != '':
+                    print('2 - {} (ACC: {:.0f} | Bonus DMG {} | SP cost: {})'.format(
+                        game.gameData.player_skills['physical_skills']['slot_2']['name'],
+                        game.gameData.player_skills['physical_skills']['slot_2']['accuracy'] * 100,
+                        game.gameData.player_skills['physical_skills']['slot_2']['damage']['bonus_damage'],
+                        game.gameData.player_skills['physical_skills']['slot_2']['stamina_cost']
+                                                                  )
+                          )
+                else:
+                    print('2 -')
+                if game.gameData.player_skills['physical_skills']['slot_3']['name'] != '':
+                    print('3 - {} (ACC: {:.0f} | Bonus DMG {} | SP cost: {})'.format(
+                        game.gameData.player_skills['physical_skills']['slot_3']['name'],
+                        game.gameData.player_skills['physical_skills']['slot_3']['accuracy'] * 100,
+                        game.gameData.player_skills['physical_skills']['slot_3']['damage']['bonus_damage'],
+                        game.gameData.player_skills['physical_skills']['slot_3']['stamina_cost']
+                    )
+                          )
+                else:
+                    print('3 -')
+                if game.gameData.player_skills['physical_skills']['slot_4']['name'] != '':
+                    print('4 - {} (ACC: {:.0f} | Bonus DMG {} | SP cost: {})'.format(
+                        game.gameData.player_skills['physical_skills']['slot_4']['name'],
+                        game.gameData.player_skills['physical_skills']['slot_4']['accuracy'] * 100,
+                        game.gameData.player_skills['physical_skills']['slot_4']['damage']['bonus_damage'],
+                        game.gameData.player_skills['physical_skills']['slot_4']['stamina_cost']
+                    )
+                          )
+                else:
+                    print('4 -')
                 print('5: back')
                 ans_skill_slot = int(input('> ').lower().strip())
                 if ans_skill_slot <= 0:
@@ -191,7 +226,7 @@ def combat_display():
                     input('press enter to leave')
             elif ans == 2:
                 game.draw_line()
-                print('1: {}\n2: {}\n3: {}\n4: {}'.format(
+                print('1 - {}\n2 - {}\n3 - {}\n4 - {}'.format(
                     game.gameData.player['magic_slots']['slot_1']['name'],
                     game.gameData.player['magic_slots']['slot_2']['name'],
                     game.gameData.player['magic_slots']['slot_3']['name'],
