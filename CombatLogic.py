@@ -182,14 +182,10 @@ def combat_display():
                                 )
                             )
                             input('press enter')
-                            display_stats(enemy_health)
-                            display_option()
                     else:
                         print(
                             'That slot does not have an ability please use one that does have a ability')
                         input('press enter to leave')
-                        display_stats(enemy_health)
-                        display_option()
                 else:
                     game.print_dialogue('That slot is invalid please choose again')
                     input('press enter to leave')
@@ -231,13 +227,10 @@ def combat_display():
                                 )
                             )
                             input('press enter')
-                            display_stats(enemy_health)
-                            display_option()
                     else:
                         print(
                             'That slot does not have an ability please use one that does have a ability')
-                        display_stats(enemy_health)
-                        display_option()
+                        input()
                 else:
                     game.print_dialogue('That slot is invalid please choose again')
                     input('press enter to leave')
