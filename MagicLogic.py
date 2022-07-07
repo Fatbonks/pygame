@@ -2,8 +2,8 @@ import Pipe as game
 
 
 def give_magic():
-    game.print_dialogue('Learn a spell of legends young mage, now which do you desire?\n1: Fireball\n2: Water '
-                        'whip\n3: Air blades\n4: earthquake\n5: I don\'t know')
+    game.print_dialogue('Learn a spell of legends young mage, now which do you desire?')
+    print('1: Fireball\n2: Water whip\n3: Air blades\n4: earthquake\n5: I don\'t know')
     ans = int(input('> ').lower().strip())
     if ans == 1:
         magic = game.gameData.magic['fire']['fireball']
@@ -19,7 +19,7 @@ def give_magic():
         game.print_dialogue('I see you find that funny don\'t you well we will teach you no longer we will see whose '
                             'laughing then!')
         return
-    game.print_dialogue('what slot would you like to assign it to\n1: slot 1\n2: slot 2\n3: slot 3\n4: slot 4')
+    print('what slot would you like to assign it to\n1: slot 1\n2: slot 2\n3: slot 3\n4: slot 4')
     ans2 = int(input('> ').lower().strip())
 
     magic_slot_adder(magic, ans2)

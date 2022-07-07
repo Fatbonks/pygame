@@ -10,6 +10,7 @@ def player_class():
             act = int(input("> ").lower().strip())
             if act == 1:
                 game.gameData.player['class'] = 'warrior'
+                game.gameData.player['race'] = 'BeastMan'
                 game.physical_skill.skill_slot_adder(game.gameData.physical_skills['Big Swing'], 1)
                 game.physical_skill.skill_slot_adder(game.gameData.physical_skills['spin attack'], 2)
                 game.physical_skill.skill_slot_adder(game.gameData.physical_skills['Sword swipe'], 3)
@@ -17,6 +18,7 @@ def player_class():
             elif act == 2:
                 game.gameData.player['stats']['max_health'] = 8
                 game.gameData.player['class'] = 'mage'
+                game.gameData.player['race'] = 'Dark Elf'
                 game.gameData.player['stats']['health'] = 8
                 game.gameData.player['stats']['max_mana'] = 13
                 game.gameData.player['stats']['mana'] = 13
@@ -29,6 +31,7 @@ def player_class():
             elif act == 3:
                 game.gameData.player['stats']['max_health'] = 10
                 game.gameData.player['class'] = 'thief'
+                game.gameData.player['race'] = 'human'
                 game.gameData.player['stats']['health'] = 10
                 game.gameData.player['stats']['speed'] = 3
                 game.gameData.player['stats']['dodge'] = 75
@@ -41,6 +44,7 @@ def player_class():
             elif act == 2134:
                 game.gameData.player['stats']['max_health'] = 13
                 game.gameData.player['class'] = 'archer'
+                game.gameData.player['race'] = 'Forest Elf'
                 game.gameData.player['stats']['health'] = 13
                 game.gameData.player['stats']['speed'] = 4
                 game.gameData.player['stats']['dodge'] = 45

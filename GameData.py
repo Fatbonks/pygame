@@ -18,16 +18,16 @@ class GameData:
             'bag': {'gold': 50},
             'magic_slots':
                 {
-                    'slot_1': {'name': 'a', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                    'slot_1': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
                                'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                },
-                    'slot_2': {'name': 'b', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                    'slot_2': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
                                'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                },
-                    'slot_3': {'name': 'c', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                    'slot_3': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
                                'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                },
-                    'slot_4': {'name': 'd', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
+                    'slot_4': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
                                'proficiency': 0, 'proficiency_level_up': 25, 'spell_used': False
                                }
 

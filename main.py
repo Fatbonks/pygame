@@ -8,22 +8,46 @@ def event_picker():
 
 def display_stats():
     game.draw_line()
-    print('{}:')
+    print('Name: {}'.format(game.gameData.player['name']))
     print('-------')
-    print('Class: {} | Race: {}')
-    print('Level: {} | Level_next: {} | EXP: {}')
-    print('MX_HP: {} | Health: {}')
-    print('MX_MP: {} | Mana: {}')
+    print('Class: {} | Race: {}'.format(game.gameData.player['class'], game.gameData.player['race']))
+    print('Level: {} | Level_next: {} | EXP: {}'.format(
+        game.gameData.player['level']['level'], game.gameData.player['level']['level_next'],
+        game.gameData.player['level']['exp']
+                                                        )
+          )
+    print('MX_HP: {} | Health: {}'.format(game.gameData.player['stats']['max_health'],
+                                          game.gameData.player['stats']['health']))
+    print('MX_MP: {} | Mana: {}'.format(game.gameData.player['stats']['max_mana'],
+                                        game.gameData.player['stats']['mana']))
     print('-------')
-    print('SPD: {}')
-    print('DMG: {} - {}')
-    print('Dodge: {}')
-    print('Smeckles: {}')
+    print('SPD: {}'.format(game.gameData.player['stats']['speed']))
+    print('DMG: {} - {}'.format(game.gameData.player['stats']['damage']['min_damage'],
+                                game.gameData.player['stats']['damage']['max_damage']))
+    print('Dodge: {}'.format(game.gameData.player['stats']['dodge']))
+    print('Smeckles: {}'.format(game.gameData.player['bag']['gold']))
     game.draw_line()
+    input('press enter to leave')
 
 
 def display_skills():
-    pass
+    game.clear()
+    for skill_slot in range(1, len(game.gameData.player_skills['physical_skills']) + 1):
+        if game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['name'] != '':
+            print('Skill in slot {}'.format(skill_slot))
+            print('-------')
+            print('{}:'.format(game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['name']))
+            print('SP Cost: {} | Accuracy: {:.0f}'.format(
+                game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['stamina_cost'],
+                game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['accuracy'] * 100)
+                  )
+            print('Bonus Damage: {}'.format(game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]
+                                            ['damage']['bonus_damage']))
+            print('Proficiency: {} | Proficiency level up: {}'.format(
+                game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['proficiency'],
+                game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['proficiency_level_up'])
+                  )
+            game.draw_line()
 
 
 def display_spell():
@@ -34,8 +58,8 @@ def display_spell():
             print('Spell in slot {}'.format(spell_slot))
             print('-------')
             print('{}:'.format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['name']))
-            print(
-                'mana cost: {}'.format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['mana_cost']))
+            print('mana cost: {}'.format(game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['mana_cost'])
+                  )
             print('DMG: {} - {}'.format(
                 game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['damage']['min_damage'],
                 game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['damage']['max_damage']
@@ -46,10 +70,8 @@ def display_spell():
                 game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['proficiency_level_up']
             )
             )
-            game.time.sleep(1.3)
-            if spell_slot == 4:
-                input('press enter to leave')
-                game.clear()
+
+
 
 
 def legal_disclaimer():
@@ -100,7 +122,30 @@ if __name__ == '__main__':
                 # 100% chance to get into a fight
                 event_picker()
             elif answer == 2:
-                display_spell()
+                while True:
+                    game.clear()
+                    print('1 - Display Stats\n2 - Display Spell\n3 - Display Skills\n4 - back')
+                    try:
+                        ans_2 = int(input('> '))
+                        if ans_2 == 4:
+                            game.clear()
+                            break
+                        if ans_2 <= 0:
+                            print('please input a number between 1 - 3')
+                        if ans_2 >= 4:
+                            print('please input a number between 1 - 3')
+                        if ans_2 == 1:
+                            display_stats()
+                        elif ans_2 == 2:
+                            display_spell()
+                            game.draw_line()
+                            input('press enter to leave')
+                            game.clear()
+                        elif ans_2 == 3:
+                            display_skills()
+                            input('press enter to leave')
+                    except ValueError:
+                        print('please use a number')
             elif answer == 3:
                 exit(0)
             elif answer == 4:
