@@ -2,7 +2,7 @@ import Pipe as game
 
 
 def give_magic():
-    game.print_dialogue('Learn a spell of legends young mage, now which do you desire?')
+    print('Learn a spell of legends young mage, now which do you desire?')
     print('1: Fireball\n2: Water whip\n3: Air blades\n4: earthquake\n5: I don\'t know')
     ans = int(input('> ').lower().strip())
     if ans == 1:
@@ -14,10 +14,10 @@ def give_magic():
     elif ans == 4:
         magic = game.gameData.magic['earth']['earthquake']
     elif ans == 5:
-        game.print_dialogue('Fool a mage must always be certain of themself')
-        game.print_dialogue('Be certain when to hold in their farts or not, it\'s a matter of life and death!')
-        game.print_dialogue('I see you find that funny don\'t you well we will teach you no longer we will see whose '
-                            'laughing then!')
+        print('Fool a mage must always be certain of themself')
+        print('Be certain when to hold in their farts or not, it\'s a matter of life and death!')
+        print('I see you find that funny don\'t you well we will teach you no longer we will see whose '
+              'laughing then!')
         return
     print('what slot would you like to assign it to\n1: slot 1\n2: slot 2\n3: slot 3\n4: slot 4')
     ans2 = int(input('> ').lower().strip())

@@ -14,6 +14,7 @@ import random
 import time
 import sys
 import os
+import main
 
 
 def get_input(question):
@@ -29,7 +30,7 @@ def print_dialogue(dialogue):
     for dial in dialogue:
         sys.stdout.write(dial)
         sys.stdout.flush()
-        time.sleep(1 / 64)
+        time.sleep(1 / 1)
     sys.stdout.write('\n')
     sys.stdout.flush()
 
@@ -54,6 +55,5 @@ else:
     healingLogic = HealingLogic
     physical_skill = physical_skills
     SavedGame = SavedGame
+    main = main
     ran = random
-
-

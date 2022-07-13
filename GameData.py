@@ -140,6 +140,64 @@ class GameData:
 
         # Array of possible player names
         # We will keep adding names as the game becomes more developed
+
+        self.dungeon_map = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                            ['#', '█', 'H', 'H', 'H', 'H', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                            ['#', 'H', '?', 'H', '?', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#'],
+                            ['#', 'H', 'H', '?', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                            ['#', 'H', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', 'H', '#'],
+                            ['#', 'H', '?', 'H', 'H', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                            ['#', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#', '#', '#'],
+                            ['#', 'H', '?', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#'],
+                            ['#', 'H', '#', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#'],
+                            ['#', 'H', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                            ['#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#'],
+                            ['#', 'B', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', 'H', '#'],
+                            ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#']]
+
+        self.dungeon_biome = {
+            '#': {
+                'biome': 'Wall', 'enemy_can_spawn': False, 'is_wall': True, 'can_explore': False,
+                'description': ''
+            },
+            '█': {
+                'biome': 'Starting room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False,
+                'description': "The room adventurers spawn in order to clear the dungeon"
+            },
+            'H': {
+                'biome': 'Hallway', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': False,
+                'description': 'A hallway ... could lead to a room or Death.'
+            },
+            '?': {
+                'biome': 'Unexplored Room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False,
+                'description': 'An unexplored room could have valuable stuff or Death.'
+            },
+            'E': {
+                'biome': 'Explored Room', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': True,
+                    'description': 'An explored room everything good is gone. .....'
+                },
+            'T': {
+                'biome': 'Treasure Room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True,
+                'description': 'Has one chest, should you open it. May has goods or danger'
+                },
+            'M': {
+                'biome': 'Merchant', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True,
+                'description': 'A merchant where you can buy potions'
+                },
+            'D': {
+                'biome': 'Dead adventurer', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True,
+                'description': 'A dead adventurer. Could have good loot....'
+            }
+
+        }
+
+        self.room = [
+
+        ]
+
+        self.player_current_x_tile = 1
+        self.player_current_y_tile = 1
+
         self.names = ['Bill', 'John', 'Dave', 'Cow', 'Tiffany', 'Tod', 'Elliot', 'Mexican jesus', 'cody']
 
         self.has_healed = False
@@ -148,4 +206,3 @@ class GameData:
 
 if __name__ == '__main__':
     exit('Please run main.py')
-

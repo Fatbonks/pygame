@@ -14,8 +14,8 @@ def display_stats():
     print('Level: {} | Level_next: {} | EXP: {}'.format(
         game.gameData.player['level']['level'], game.gameData.player['level']['level_next'],
         game.gameData.player['level']['exp']
-                                                        )
-          )
+    )
+    )
     print('MX_HP: {} | Health: {}'.format(game.gameData.player['stats']['max_health'],
                                           game.gameData.player['stats']['health']))
     print('MX_MP: {} | Mana: {}'.format(game.gameData.player['stats']['max_mana'],
@@ -40,13 +40,13 @@ def display_skills():
             print('SP Cost: {} | Accuracy: {:.0f}'.format(
                 game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['stamina_cost'],
                 game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['accuracy'] * 100)
-                  )
+            )
             print('Bonus Damage: {}'.format(game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]
                                             ['damage']['bonus_damage']))
             print('Proficiency: {} | Proficiency level up: {}'.format(
                 game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['proficiency'],
                 game.gameData.player_skills['physical_skills']['slot_{}'.format(skill_slot)]['proficiency_level_up'])
-                  )
+            )
             game.draw_line()
 
 
@@ -70,8 +70,6 @@ def display_spell():
                 game.gameData.player['magic_slots']['slot_{}'.format(spell_slot)]['proficiency_level_up']
             )
             )
-
-
 
 
 def legal_disclaimer():
@@ -102,57 +100,7 @@ if __name__ == '__main__':
                 break
         if ans == 2:
             game.playerCreation.player_class()
-            break
 
-    # Main game loop
-    while True:
-        game.draw_line()
-        print("1 - Move up\n2 - Shows your stats\n3 - To leave the game\n4 - save")
-        try:
-            answer = int(input("> "))
-            # up is debug command to trigger combat
-            # if player enters up go into combat
-            # if player enters stats print out the stats
-            # if player enters exit, exit the game
-            if answer <= 0:
-                print('please use numbers between 1 - 4')
-            if answer >= 5:
-                print('please use numbers between 1 - 4')
-            if answer == 1:
-                # 100% chance to get into a fight
-                event_picker()
-            elif answer == 2:
-                while True:
-                    game.clear()
-                    print('1 - Display Stats\n2 - Display Spell\n3 - Display Skills\n4 - back')
-                    try:
-                        ans_2 = int(input('> '))
-                        if ans_2 == 4:
-                            game.clear()
-                            break
-                        if ans_2 <= 0:
-                            print('please input a number between 1 - 3')
-                        if ans_2 >= 4:
-                            print('please input a number between 1 - 3')
-                        if ans_2 == 1:
-                            display_stats()
-                        elif ans_2 == 2:
-                            display_spell()
-                            game.draw_line()
-                            input('press enter to leave')
-                            game.clear()
-                        elif ans_2 == 3:
-                            display_skills()
-                            input('press enter to leave')
-                    except ValueError:
-                        print('please use a number')
-            elif answer == 3:
-                exit(0)
-            elif answer == 4:
-                game.SavedGame.save_game()
-                game.draw_line()
-                print('the game is saving')
-                game.print_dialogue('......')
-                print('the game has saved')
-        except ValueError:
-            print('please use a number')
+        game.map_creation.create_map(game.gameData.dungeon_map, game.gameData.dungeon_biome,
+                                     game.gameData.player_current_y_tile,
+                                     game.gameData.player_current_x_tile)
