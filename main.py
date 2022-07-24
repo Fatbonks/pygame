@@ -1,9 +1,7 @@
 import Pipe as game
 
 
-def event_picker():
-    if game.ran.random() < 1:
-        game.combatLogic.combat_display()
+
 
 
 def display_stats():
@@ -26,6 +24,7 @@ def display_stats():
                                 game.gameData.player['stats']['damage']['max_damage']))
     print('Dodge: {}'.format(game.gameData.player['stats']['dodge']))
     print('Smeckles: {}'.format(game.gameData.player['bag']['gold']))
+    print('Drugs: {}'.format(game.gameData.player['bag']['Drugs']))
     game.draw_line()
     input('press enter to leave')
 
@@ -97,10 +96,11 @@ if __name__ == '__main__':
             game.SavedGame.load_game()
             if game.gameData.has_loaded is True:
                 game.gameData.has_loaded = False
+
                 break
         if ans == 2:
             game.playerCreation.player_class()
-
-        game.map_creation.create_map(game.gameData.dungeon_map, game.gameData.dungeon_biome,
-                                     game.gameData.player_current_y_tile,
-                                     game.gameData.player_current_x_tile)
+        game.gameData.map = 'World Map'
+        game.map_creation.create_map(game.gameData.world_map, game.gameData.biome,
+                                     game.gameData.player_x_world,
+                                     game.gameData.player_y_world)

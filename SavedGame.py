@@ -16,3 +16,6 @@ def load_game():
             game.gameData.has_loaded = True
     except:
         print('no saved game found')
+
+if __name__ == '__main__':
+    exit('Please run main.py')

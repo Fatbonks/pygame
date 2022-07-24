@@ -1,7 +1,7 @@
 # import select
 
 from GameData import GameData
-import json
+import MapCreation
 import EnemyCreation
 import PlayerCreation
 import LevelLogic
@@ -43,17 +43,19 @@ def clear():
     os.system('cls')
 
 
+gameData = GameData()
+map_creation = MapCreation
+enemyCreation = EnemyCreation
+playerCreation = PlayerCreation
+levelLogic = LevelLogic
+magicLogic = MagicLogic
+combatLogic = CombatLogic
+healingLogic = HealingLogic
+physical_skill = physical_skills
+SavedGame = SavedGame
+main = main
+ran = random
+
 if __name__ == '__main__':
     exit('Please run main.py')
-else:
-    gameData = GameData()
-    enemyCreation = EnemyCreation
-    playerCreation = PlayerCreation
-    levelLogic = LevelLogic
-    magicLogic = MagicLogic
-    combatLogic = CombatLogic
-    healingLogic = HealingLogic
-    physical_skill = physical_skills
-    SavedGame = SavedGame
-    main = main
-    ran = random
+

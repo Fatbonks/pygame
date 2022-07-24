@@ -127,7 +127,7 @@ def display_stats(enemy_health):
 
 def display_option():
     game.time.sleep(1.5)
-    print('1 - physical ATK\n2 - Use spells\n3 - Run\n4 - Call god to get drugs')
+    print('1 - Physical ATK\n2 - Use spells\n3 - Run\n4 - Bag')
     game.draw_line()
 
 
@@ -181,7 +181,7 @@ def combat_display():
                           )
                 else:
                     print('4 -')
-                print('5: back')
+                print('5: Back')
                 ans_skill_slot = int(input('> ').lower().strip())
                 if ans_skill_slot <= 0:
                     print('Please pick a number between 1 - 5')
@@ -212,7 +212,7 @@ def combat_display():
                                     'stamina_cost']
                         else:
                             print(
-                                'you dont have enough mana you have {} SP left'.format(
+                                'You dont have enough mana you have {} SP left'.format(
                                     game.gameData.player['stats']['stamina']
                                 )
                             )
@@ -222,7 +222,7 @@ def combat_display():
                             'That slot does not have an ability please use one that does have a ability')
                         input('press enter to leave')
                 else:
-                    game.print_dialogue('That slot is invalid please choose again')
+                    print('That slot is invalid please choose again')
                     input('press enter to leave')
             elif ans == 2:
                 game.draw_line()
@@ -233,7 +233,7 @@ def combat_display():
                     game.gameData.player['magic_slots']['slot_4']['name']
                 )
                 )
-                print('5: back')
+                print('5: Back')
                 ans_magic_slot = int(input('> ').lower().strip())
                 if ans_magic_slot <= 0:
                     print('Please pick a number between 1 - 5')
@@ -267,21 +267,38 @@ def combat_display():
                             'That slot does not have an ability please use one that does have a ability')
                         input()
                 else:
-                    game.print_dialogue('That slot is invalid please choose again')
+                    print('That slot is invalid please choose again')
                     input('press enter to leave')
             elif ans == 3:
                 if game.ran.random() < 0.5:
-                    game.print_dialogue('you ran away!')
+                    print('You ran away!')
                     game.clear()
                     break
                 else:
-                    game.print_dialogue(
-                        'the {} did not let you escape and he attacked you'.format(game.gameData.enemy['name']))
+                    print(
+                        'The {} did not let you escape and he attacked you'.format(game.gameData.enemy['name']))
                     take_damage()
                     input('press enter to leave')
             elif ans == 4:
-                game.healingLogic.healing_drugs()
-                input('press enter to leave')
+                print('1 - Health potions: {}\n2 - Drugs: {}'.format(
+                    game.gameData.player['bag']['health_potion'], game.gameData.player['bag']['Drugs'])
+                )
+                try:
+                    ans_2 = int(input('>'))
+                    if ans_2 == 1:
+                        if game.gameData.player['bag']['health_potion'] > 0:
+                            pass
+                        else:
+                            print('you dont have any health potions')
+                            input('press enter')
+                    if ans_2 == 2:
+                        if game.gameData.player['bag']['Drugs'] > 0:
+                            game.healingLogic.drugs_healing()
+                        else:
+                            print('you dont have any drugs')
+                            input('press enter')
+                except ValueError:
+                    pass
 
         except ValueError:
             print('please use a number')

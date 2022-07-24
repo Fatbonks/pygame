@@ -1,7 +1,3 @@
-import json
-
-import Pipe as game
-
 
 class GameData:
     # Declare all global variables
@@ -15,7 +11,7 @@ class GameData:
                       'damage': {'min_damage': 1, 'max_damage': 6},
                       'speed': 1, 'dodge': 10, 'stamina': 100, 'max_stamina': 100},
             'level': {'level': 1, 'level_next': 25, 'exp': 0},
-            'bag': {'gold': 50},
+            'bag': {'gold': 50, 'health_potion': 0, 'Drugs': 0},
             'magic_slots':
                 {
                     'slot_1': {'name': '', 'mana_cost': 0, 'damage': {'min_damage': 0, 'max_damage': 0},
@@ -140,63 +136,85 @@ class GameData:
 
         # Array of possible player names
         # We will keep adding names as the game becomes more developed
-
-        self.dungeon_map = [['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                            ['#', '█', 'H', 'H', 'H', 'H', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                            ['#', 'H', '?', 'H', '?', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#'],
-                            ['#', 'H', 'H', '?', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                            ['#', 'H', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', 'H', '#'],
-                            ['#', 'H', '?', 'H', 'H', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                            ['#', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#', '#', '#'],
-                            ['#', 'H', '?', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#'],
-                            ['#', 'H', '#', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#'],
-                            ['#', 'H', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                            ['#', 'H', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', '#', '#', '#', '#', '#', '#'],
-                            ['#', 'B', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'H', '#', 'H', '#'],
-                            ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#']]
-
-        self.dungeon_biome = {
+        self.quest = {
+            'description': '', 'Reward': 0
+        }
+        self.map = ''
+        self.dungeon_map = []
+        self.world_map = [['m', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm'],
+                          ['m', 'd', 'V', 'P', 'F', 'F', 'm', 'm', 'm', 'D', 'F', 'F', 'm'],
+                          ['m', 'm', 'm', 'P', 'F', 'F', 'm', 'd', 'm', 'm', 'm', 'F', 'm'],
+                          ['m', 'm', 'm', 'P', 'P', 'P', 'V', 'P', 'P', 'P', 'P', 'F', 'm'],
+                          ['m', 'm', 'm', 'm', 'm', 'F', 'm', 'F', 'F', 'm', 'P', 'F', 'm'],
+                          ['m', 'm', 'm', 'm', 'm', 'F', 'F', 'F', 'F', 'm', 'P', 'F', 'm'],
+                          ['m', 'm', 'm', 'D', 'F', 'F', 'T', 'F', 'F', 'F', 'V', 'F', 'm'],
+                          ['m', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm']]
+        self.dungeon_enemies = 0
+        self.biome = {
             '#': {
-                'biome': 'Wall', 'enemy_can_spawn': False, 'is_wall': True, 'can_explore': False,
-                'description': ''
+                'biome': 'Wall', 'enemy_can_spawn': False, 'is_wall': True, 'can_explore': False, 'Intractable': False,
+                'description': 'bruh how you should even be able to get here'
             },
             '█': {
-                'biome': 'Starting room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False,
-                'description': "The room adventurers spawn in order to clear the dungeon"
+                'biome': 'Starting room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False, 'Intractable': True,
+                'description': "To exit and enter into the dungeon"
             },
             'H': {
-                'biome': 'Hallway', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': False,
+                'biome': 'Hallway', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': False, 'Intractable': False,
                 'description': 'A hallway ... could lead to a room or Death.'
             },
             '?': {
-                'biome': 'Unexplored Room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False,
+                'biome': 'Unexplored Room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False, 'Intractable': True,
                 'description': 'An unexplored room could have valuable stuff or Death.'
             },
             'E': {
-                'biome': 'Explored Room', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': True,
-                    'description': 'An explored room everything good is gone. .....'
-                },
+                'biome': 'Explored Room', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': True, 'Intractable': False,
+                'description': 'An explored room everything good is gone. .....'
+            },
             'T': {
-                'biome': 'Treasure Room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True,
+                'biome': 'Treasure Room', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True, 'Intractable': True,
                 'description': 'Has one chest, should you open it. May has goods or danger'
-                },
+            },
             'M': {
-                'biome': 'Merchant', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True,
+                'biome': 'Merchant', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True, 'Intractable': True,
                 'description': 'A merchant where you can buy potions'
-                },
+            },
             'D': {
-                'biome': 'Dead adventurer', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True,
+                'biome': 'Dead adventurer', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': True, 'Intractable': True,
                 'description': 'A dead adventurer. Could have good loot....'
-            }
+            },
+            '@': {
+                'biome': 'Breakable door', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False, 'Intractable': True,
+                'description': 'its possible to break.....'
+            },
+            'm': {
+                'biome': 'Mountain', 'enemy_can_spawn': False, 'is_wall': True, 'can_explore': False, 'Intractable': False,
+                'description': 'mount'
+            },
+            'P': {
+                'biome': 'Pathway', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': False, 'Intractable': False,
+                'description': 'Pathway that lead to Towns'
+            },
+            'F': {
+                'biome': 'Forest', 'enemy_can_spawn': True, 'is_wall': False, 'can_explore': False, 'Intractable': False,
+                'description': 'A Forest'
+            },
+            'V': {
+                'biome': 'Village', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False, 'Intractable': True,
+                'description': 'A village, Used to buy equipment'
+            },
+            'd': {
+                'biome': 'Dungeon Selector', 'enemy_can_spawn': False, 'is_wall': False, 'can_explore': False, 'Intractable': True,
+                'description': 'To select what dungeon to play'
+            },
 
         }
 
-        self.room = [
-
-        ]
-
-        self.player_current_x_tile = 1
-        self.player_current_y_tile = 1
+        self.room = []
+        self.player_x_dungeon = 1
+        self.player_y_dungeon = 1
+        self.player_x_world = 2
+        self.player_y_world = 1
 
         self.names = ['Bill', 'John', 'Dave', 'Cow', 'Tiffany', 'Tod', 'Elliot', 'Mexican jesus', 'cody']
 
