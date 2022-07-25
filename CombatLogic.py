@@ -60,7 +60,7 @@ def combat_attacking(bonus_damage, acc, slot):
             do_damage(bonus_damage, slot)
             if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
                 if game.gameData.enemy['stats']['health'] > 0:
-                    game.print_dialogue("{} dodged the enemies attack".format(game.gameData.player['name']))
+                    print("{} dodged the enemies attack".format(game.gameData.player['name']))
                     if game.gameData.player['class'] == 'thief':
                         do_damage(bonus_damage, slot)
             else:
@@ -71,7 +71,7 @@ def combat_attacking(bonus_damage, acc, slot):
     else:
         if game.gameData.player['stats']['dodge'] / 100 > game.ran.random():
             if game.gameData.enemy['stats']['health'] > 0:
-                game.print_dialogue("{} dodged the enemies attack".format(game.gameData.player['name']))
+                print("{} dodged the enemies attack".format(game.gameData.player['name']))
                 if acc > game.ran.random():
                     do_damage(bonus_damage, slot)
                 else:
