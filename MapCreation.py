@@ -278,6 +278,8 @@ def event(game_map, biome, x, y, ans):
                                 else:
                                     print('you have no money')
                                     input('press enter')
+                            if ans_3 == 2:
+                                break
                     elif ans_2 == 2:
                         print('you are not a valid member of the Church of Ryan')
                         input('press enter')
